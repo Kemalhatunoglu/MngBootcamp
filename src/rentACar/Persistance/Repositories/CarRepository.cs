@@ -4,9 +4,9 @@ using Domain.Entities.Concete;
 
 namespace Persistance.Repositories
 {
-    public class BrandRepository : EfRepositoryBase<Brand, BaseDbContext>, IBrandRepository
+    public class CarRepository : EfRepositoryBase<Car, BaseDbContext>, ICarRepository
     {
-        public BrandRepository(BaseDbContext context) : base(context)
+        public CarRepository(BaseDbContext context) : base(context)
         {
 
         }

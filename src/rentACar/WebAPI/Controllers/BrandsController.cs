@@ -15,5 +15,21 @@ namespace WebAPI.Controllers
 
             return Created("", result);
         }
+
+        [HttpPost("update")]
+        public async Task<IActionResult> Update([FromBody] CreateBrandCommand createBrandCommand)
+        {
+            var result = await Mediator.Send(createBrandCommand);
+
+            return Ok();
+        }
+
+        [HttpPost("delete")]
+        public async Task<IActionResult> Delete([FromBody] CreateBrandCommand createBrandCommand)
+        {
+            var result = await Mediator.Send(createBrandCommand);
+
+            return Ok();
+        }
     }
 }

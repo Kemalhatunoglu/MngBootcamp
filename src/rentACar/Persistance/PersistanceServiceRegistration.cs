@@ -13,6 +13,8 @@ namespace Persistance
             services.AddDbContext<BaseDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("RentACarConnectionString")));
 
             services.AddScoped<IBrandRepository, BrandRepository>();
+            services.AddScoped<IModelRepository, ModelRepository>();
+            services.AddScoped<ICarRepository, CarRepository>();
 
             return services;
         }
