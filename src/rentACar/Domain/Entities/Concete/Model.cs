@@ -35,6 +35,7 @@ namespace Domain.Entities.Concete
         public virtual Brand Brand { get; set; }
         public virtual Transmission Transmission { get; set; }
         public virtual Fuel Fuel { get; set; }
+        public virtual ICollection<Car> Cars { get; set; }
 
     }
 }
