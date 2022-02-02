@@ -19,10 +19,10 @@ namespace Persistance
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                base.OnConfiguring(optionsBuilder.UseSqlServer(Configuration.GetConnectionString("RentACarConnectionString")));
-            }
+            //if (!optionsBuilder.IsConfigured)
+            //{
+            //    base.OnConfiguring(optionsBuilder.UseSqlServer(Configuration.GetConnectionString("RentACarConnectionString")));
+            //}
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -39,7 +39,7 @@ namespace Persistance
 
             modelBuilder.Entity<Model>(m =>
             {
-                m.ToTable("Brands").HasKey(key => key.Id);
+                m.ToTable("Models").HasKey(key => key.Id);
                 m.Property(x => x.Id).HasColumnName("Id").IsRequired();
                 m.Property(x => x.BrandId).HasColumnName("BrandId").IsRequired();
                 m.Property(x => x.FuelId).HasColumnName("FuelId").IsRequired();
