@@ -8,7 +8,7 @@ namespace Persistance
 {
     public static class PersistanceServiceRegistration
     {
-        public static IServiceCollection AddPersistanceService(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddPersistanceServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<BaseDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("RentACarConnectionString")));
 

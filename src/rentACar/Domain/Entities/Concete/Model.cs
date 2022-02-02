@@ -6,7 +6,7 @@ namespace Domain.Entities.Concete
     {
         public Model()
         {
-            Brand = new Brand();
+            //Brand = new Brand();
         }
 
         public Model(int id, int brandId, int fuelId, int transmissionId, string name, double dailyPrice, string imageUrl) : this()
