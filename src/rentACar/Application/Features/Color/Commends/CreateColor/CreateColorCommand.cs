@@ -15,6 +15,13 @@ namespace Application.Features.Color.Commends.CreateColor
             private readonly IMapper _mapper;
             private readonly ColorBusinessRules _colorBusinessRules;
 
+            public CreateBrandCommandHandler(IColorRepository colorRepository, IMapper mapper, ColorBusinessRules colorBusinessRules)
+            {
+                _colorRepository = colorRepository;
+                _mapper = mapper;
+                _colorBusinessRules = colorBusinessRules;
+            }
+
             public async Task<Domain.Entities.Concete.Color> Handle(CreateColorCommand request, CancellationToken cancellationToken)
             {
                 await _colorBusinessRules.ColorNameCanNotBeDuplicatedWhenInserted(request.Name);
