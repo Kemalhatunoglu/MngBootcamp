@@ -1,17 +1,19 @@
-﻿using Application.Features.Fuel.Dtos;
+﻿using Application.Constants;
 using Application.Features.Fuel.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
 using MediatR;
 
 namespace Application.Features.Fuel.Commends.UpdateFuel
 {
-    public class UpdateFuelCommand : IRequest<FuelUpdateDto>
+    public class UpdateFuelCommand : IRequest<IResult>
     {
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public class UpdateFuelCommandHandler : IRequestHandler<UpdateFuelCommand, FuelUpdateDto>
+        public class UpdateFuelCommandHandler : IRequestHandler<UpdateFuelCommand, IResult>
         {
             private readonly IFuelRepository _fuelRepository;
             private readonly IMapper _mapper;
@@ -24,16 +26,13 @@ namespace Application.Features.Fuel.Commends.UpdateFuel
                 _fuelRepository = fuelRepository;
             }
 
-            public async Task<FuelUpdateDto> Handle(UpdateFuelCommand request, CancellationToken cancellationToken)
+            public async Task<IResult> Handle(UpdateFuelCommand request, CancellationToken cancellationToken)
             {
-                var existFuel = await _fuelRepository.GetAsync(f => f.Id == request.Id);
-                if (existFuel == null) throw new Exception("Fuel update referance exception");
-
                 await _fuelBusinessRules.FuelNameCanNotBeDuplicatedWhenInserted(request.Name);
-                var updateFuelModel = _mapper.Map<Domain.Entities.Concete.Fuel>(request);
-                await _fuelRepository.UpdateAsync(updateFuelModel);
-                var mappedReturnFuelDto = _mapper.Map<FuelUpdateDto>(updateFuelModel);
-                return mappedReturnFuelDto;
+
+                var updateModelFuel = _mapper.Map<Domain.Entities.Concete.Fuel>(request);
+                await _fuelRepository.UpdateAsync(updateModelFuel);
+                return new SuccessResult(Message.SuccessUpdate);
             }
         }
     }

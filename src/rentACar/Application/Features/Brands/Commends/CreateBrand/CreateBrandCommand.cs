@@ -1,16 +1,19 @@
-﻿using Application.Features.Brands.Rules;
+﻿using Application.Constants;
+using Application.Features.Brands.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
 using Domain.Entities.Concete;
 using MediatR;
 
 namespace Application.Features.Brands.Commends.CreateBrand
 {
-    public class CreateBrandCommand : IRequest<Brand>
+    public class CreateBrandCommand : IRequest<IDataResult<Brand>>
     {
         public string Name { get; set; }
 
-        public class CreateBrandCommandHandler : IRequestHandler<CreateBrandCommand, Brand>
+        public class CreateBrandCommandHandler : IRequestHandler<CreateBrandCommand, IDataResult<Brand>>
         {
             private readonly IBrandRepository _brandRepository;
             private readonly IMapper _mapper;
@@ -23,12 +26,12 @@ namespace Application.Features.Brands.Commends.CreateBrand
                 _brandBusinessRules = brandBusinessRules;
             }
 
-            public async Task<Brand> Handle(CreateBrandCommand request, CancellationToken cancellationToken)
+            public async Task<IDataResult<Brand>> Handle(CreateBrandCommand request, CancellationToken cancellationToken)
             {
                 await _brandBusinessRules.BrandNameCanNotBeDuplicatedWhenInserted(request.Name);
-                var mappedBrand = _mapper.Map<Brand>(request);
-                var createdBrand = await _brandRepository.AddAsync(mappedBrand);
-                return createdBrand;
+                Brand mappedBrand = _mapper.Map<Brand>(request);
+                Brand brandToAdd = await _brandRepository.AddAsync(mappedBrand);
+                return new SuccessDataResult<Brand>(brandToAdd, Message.SuccessCreate);
             }
         }
 

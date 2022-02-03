@@ -1,4 +1,5 @@
-﻿using Application.Services.Repositories;
+﻿using Application.Constants;
+using Application.Services.Repositories;
 using Core.CrossCuttingConcerns.Exceptions;
 
 namespace Application.Features.Brands.Rules
@@ -12,12 +13,12 @@ namespace Application.Features.Brands.Rules
             _brandRepository = brandRepository;
         }
 
-        //Gerkhin Language (dili)
+        //Gerkhin Language
         public async Task BrandNameCanNotBeDuplicatedWhenInserted(string name)
         {
             var result = await _brandRepository.GetListAsync(x => x.Name == name);
             if (result.Items.Any())
-                throw new BusinessException("Brand name exists");
+                throw new BusinessException(Message.ExistingData);
         }
     }
 }

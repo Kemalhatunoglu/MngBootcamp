@@ -1,4 +1,5 @@
-﻿using Application.Services.Repositories;
+﻿using Application.Constants;
+using Application.Services.Repositories;
 using Core.CrossCuttingConcerns.Exceptions;
 
 namespace Application.Features.Fuel.Rules
@@ -16,7 +17,7 @@ namespace Application.Features.Fuel.Rules
         {
             var result = await _fuelRepository.GetListAsync(x => x.Name == name);
             if (result.Items.Any())
-                throw new BusinessException("Fuel name exists");
+                throw new BusinessException(Message.ExistingData);
         }
     }
 }

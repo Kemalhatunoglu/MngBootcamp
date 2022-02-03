@@ -1,16 +1,19 @@
-﻿using Application.Features.Cars.Models;
+﻿using Application.Constants;
+using Application.Features.Cars.Models;
 using Application.Services.Repositories;
 using AutoMapper;
 using Core.Application.Requests;
+using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
 using MediatR;
 
 namespace Application.Features.Cars.Queries
 {
-    public class GetCarListQuery : IRequest<CarListModel>
+    public class GetCarListQuery : IRequest<IDataResult<CarListModel>>
     {
         public PageRequest PageRequest { get; set; }
 
-        public class GetCarListQueryHandler : IRequestHandler<GetCarListQuery, CarListModel>
+        public class GetCarListQueryHandler : IRequestHandler<GetCarListQuery, IDataResult<CarListModel>>
         {
             private readonly ICarRepository _carRepository;
             private readonly IMapper _mapper;
@@ -21,7 +24,7 @@ namespace Application.Features.Cars.Queries
                 _carRepository = carRepository;
             }
 
-            public async Task<CarListModel> Handle(GetCarListQuery request, CancellationToken cancellationToken)
+            public async Task<IDataResult<CarListModel>> Handle(GetCarListQuery request, CancellationToken cancellationToken)
             {
                 var cars = await _carRepository.GetListAsync(
                     index: request.PageRequest.Page,
@@ -29,7 +32,7 @@ namespace Application.Features.Cars.Queries
                     );
                 var mappedCars = _mapper.Map<CarListModel>(cars);
 
-                return mappedCars;
+                return new SuccessDataResult<CarListModel>(mappedCars, Message.SuccessGet);
             }
         }
     }

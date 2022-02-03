@@ -1,5 +1,5 @@
-﻿using Application.Services.Repositories;
-using Core.CrossCuttingConcerns.Exceptions;
+﻿using Application.Constants;
+using Application.Services.Repositories;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using MediatR;
@@ -21,10 +21,12 @@ namespace Application.Features.Fuel.Commends.DeleteFuel
 
             public async Task<IResult> Handle(DeleteFuelCommand request, CancellationToken cancellationToken)
             {
-                var deleteFuel = await _fuelRepository.GetAsync(f => f.Id == request.Id);
-                if (deleteFuel == null) throw new BusinessException("Fuel delete referance exception");
-                await _fuelRepository.DeleteAsync(deleteFuel);
-                return new SuccessResult("Deleted complete");
+                var fuelToBeDeleted = await _fuelRepository.GetAsync(f => f.Id == request.Id);
+
+                if (fuelToBeDeleted == null) return new ErrorResult(Message.ErrorDelete);
+
+                await _fuelRepository.DeleteAsync(fuelToBeDeleted);
+                return new SuccessResult(Message.SuccessDelete);
             }
         }
     }

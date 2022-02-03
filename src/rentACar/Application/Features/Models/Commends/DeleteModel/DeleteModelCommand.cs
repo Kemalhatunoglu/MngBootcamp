@@ -1,4 +1,5 @@
-﻿using Application.Services.Repositories;
+﻿using Application.Constants;
+using Application.Services.Repositories;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using MediatR;
@@ -19,14 +20,12 @@ namespace Application.Features.Models.Commends.DeleteModel
 
             public async Task<IResult> Handle(DeleteModelCommand request, CancellationToken cancellationToken)
             {
-                var deleteModel = await _modelRepository.GetAsync(m => m.Id == request.Id);
+                var modelToBeDeleted = await _modelRepository.GetAsync(m => m.Id == request.Id);
 
-                if (deleteModel != null)
-                {
-                    await _modelRepository.DeleteAsync(deleteModel);
-                    return new SuccessResult("The deletion is complete.");
-                }
-                return new ErrorResult("Deletion failed.");
+                if (modelToBeDeleted == null) return new ErrorResult(Message.ErrorDelete);
+
+                await _modelRepository.DeleteAsync(modelToBeDeleted);
+                return new SuccessResult(Message.SuccessDelete);
             }
         }
     }

@@ -1,12 +1,15 @@
-﻿using Application.Features.Models.Rules;
+﻿using Application.Constants;
+using Application.Features.Models.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
 using Domain.Entities.Concete;
 using MediatR;
 
 namespace Application.Features.Models.Commends.CreateModel
 {
-    public class CreateModelCommand : IRequest<Model>
+    public class CreateModelCommand : IRequest<IDataResult<Model>>
     {
         public int BrandId { get; set; }
         public int FuelId { get; set; }
@@ -15,7 +18,7 @@ namespace Application.Features.Models.Commends.CreateModel
         public double DailyPrice { get; set; }
         public string ImageUrl { get; set; }
 
-        public class CreateModelResponse : IRequestHandler<CreateModelCommand, Model>
+        public class CreateModelResponse : IRequestHandler<CreateModelCommand, IDataResult<Model>>
         {
             private readonly IModelRepository _modelRepository;
             private readonly IMapper _mapper;
@@ -28,14 +31,14 @@ namespace Application.Features.Models.Commends.CreateModel
                 _modelBusinessRules = modelBusinessRules;
             }
 
-            public async Task<Model> Handle(CreateModelCommand request, CancellationToken cancellationToken)
+            public async Task<IDataResult<Model>> Handle(CreateModelCommand request, CancellationToken cancellationToken)
             {
                 await _modelBusinessRules.ModelNameCanNotBeDuplicatedWhenInserted(request.Name);
                 _modelBusinessRules.ModelDailyPriceCanNotBeLessThanZero(request.DailyPrice);
 
                 var mapperModel = _mapper.Map<Model>(request);
-                var createModel = await _modelRepository.AddAsync(mapperModel);
-                return createModel;
+                var modelToAdd = await _modelRepository.AddAsync(mapperModel);
+                return new SuccessDataResult<Model>(modelToAdd, Message.SuccessCreate);
             }
         }
     }

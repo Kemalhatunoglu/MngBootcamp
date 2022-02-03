@@ -17,7 +17,6 @@ namespace Application.Features.Brands.Profiles
             CreateMap<Brand, UpdateBrandCommand>().ReverseMap();
             CreateMap<Brand, DeleteBrandCommand>().ReverseMap();
 
-            CreateMap<Brand, BrandUpdateDto>().ReverseMap();
             CreateMap<Brand, BrandListDto>().ReverseMap();
 
             CreateMap<IPaginate<Brand>, BrandListModel>().ReverseMap();

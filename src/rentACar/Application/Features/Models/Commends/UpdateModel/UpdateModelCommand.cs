@@ -1,4 +1,5 @@
-﻿using Application.Features.Models.Rules;
+﻿using Application.Constants;
+using Application.Features.Models.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Core.Utilities.Results.Abstract;
@@ -33,11 +34,11 @@ namespace Application.Features.Models.Commends.UpdateModel
 
             public async Task<IResult> Handle(UpdateModelCommand request, CancellationToken cancellationToken)
             {
-                var isExistModel = await _modelRepository.GetAsync(x => x.Id == request.Id);
                 await _modelBusinessRules.ModelNameCanNotBeDuplicatedWhenInserted(request.Name);
-                var mapperModel = _mapper.Map<Model>(request);
-                await _modelRepository.UpdateAsync(mapperModel);
-                return new SuccessResult("The update has been performed.");
+
+                Model updateModel = _mapper.Map<Model>(request);
+                await _modelRepository.UpdateAsync(updateModel);
+                return new SuccessResult(Message.SuccessUpdate);
             }
         }
     }

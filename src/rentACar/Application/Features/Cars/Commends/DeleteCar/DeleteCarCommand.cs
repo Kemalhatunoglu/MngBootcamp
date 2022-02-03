@@ -1,6 +1,8 @@
-﻿using Application.Services.Repositories;
+﻿using Application.Constants;
+using Application.Services.Repositories;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
+using Domain.Entities.Concete;
 using MediatR;
 
 namespace Application.Features.Cars.Commends.DeleteCar
@@ -20,13 +22,12 @@ namespace Application.Features.Cars.Commends.DeleteCar
 
             public async Task<IResult> Handle(DeleteCarCommand request, CancellationToken cancellationToken)
             {
-                var deleteCar = await _carRepository.GetAsync(c => c.Id == request.Id);
-                if (deleteCar != null)
-                {
-                    await _carRepository.DeleteAsync(deleteCar);
-                    return new SuccessResult();
-                }
-                return new ErrorResult();
+                Car carToBeDeleted = await _carRepository.GetAsync(c => c.Id == request.Id);
+
+                if (carToBeDeleted == null) return new ErrorResult(Message.ErrorDelete);
+
+                await _carRepository.DeleteAsync(carToBeDeleted);
+                return new SuccessResult(Message.SuccessDelete);
             }
         }
     }

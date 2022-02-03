@@ -1,7 +1,8 @@
-﻿using Application.Services.Repositories;
-using Core.CrossCuttingConcerns.Exceptions;
+﻿using Application.Constants;
+using Application.Services.Repositories;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
+using Domain.Entities.Concete;
 using MediatR;
 
 namespace Application.Features.Transmissions.Commends.DeleteTransmission
@@ -21,10 +22,11 @@ namespace Application.Features.Transmissions.Commends.DeleteTransmission
 
             public async Task<IResult> Handle(DeleteTransmissionCommand request, CancellationToken cancellationToken)
             {
-                var result = await _transmissionRepository.GetAsync(c => c.Id == request.Id);
-                if (result == null) throw new BusinessException("There was an error in deletion.");
-                await _transmissionRepository.DeleteAsync(result);
-                return new SuccessResult("The deletion was successful.");
+                Transmission transmissionToBeDeleted = await _transmissionRepository.GetAsync(c => c.Id == request.Id);
+
+                if (transmissionToBeDeleted == null) return new ErrorResult(Message.ErrorDelete);
+                await _transmissionRepository.DeleteAsync(transmissionToBeDeleted);
+                return new SuccessResult(Message.SuccessDelete);
             }
         }
     }

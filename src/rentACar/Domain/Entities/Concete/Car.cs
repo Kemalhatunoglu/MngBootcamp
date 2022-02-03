@@ -10,7 +10,7 @@ namespace Domain.Entities.Concete
 
         }
 
-        public Car(int id, int modelId, int colorId, string plate, short modelYear, CarState carState) : this()
+        public Car(int id, int modelId, int colorId, string plate, short modelYear, CarState carState, DateTime maintainStartDate, DateTime maintainEndDate) : this()
         {
             Id = id;
             ModelId = modelId;
@@ -18,6 +18,8 @@ namespace Domain.Entities.Concete
             Plate = plate;
             ModelYear = modelYear;
             CarState = carState;
+            MaintainStartDate = maintainStartDate;
+            MaintainEndDate = maintainEndDate;
         }
 
         public int ModelId { get; set; }
@@ -25,6 +27,8 @@ namespace Domain.Entities.Concete
         public string Plate { get; set; }
         public short ModelYear { get; set; }
         public CarState CarState { get; set; }
+        public DateTime? MaintainStartDate { get; set; }
+        public DateTime? MaintainEndDate { get; set; }
 
         public virtual Color Color { get; set; }
         public virtual Model Model { get; set; }

@@ -1,21 +1,19 @@
-﻿using Application.Features.Models.Models;
+﻿using Application.Constants;
+using Application.Features.Models.Models;
 using Application.Services.Repositories;
 using AutoMapper;
 using Core.Application.Requests;
+using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.Models.Queries
 {
-    public class GetModelListQuery : IRequest<ModelListModel>
+    public class GetModelListQuery : IRequest<IDataResult<ModelListModel>>
     {
         public PageRequest PageRequest { get; set; }
 
-        class GetModelListQueryHandler : IRequestHandler<GetModelListQuery, ModelListModel>
+        class GetModelListQueryHandler : IRequestHandler<GetModelListQuery, IDataResult<ModelListModel>>
         {
             private readonly IModelRepository _modelRepository;
             private readonly IMapper _mapper;
@@ -26,15 +24,15 @@ namespace Application.Features.Models.Queries
                 _modelRepository = modelRepository;
             }
 
-            public async Task<ModelListModel> Handle(GetModelListQuery request, CancellationToken cancellationToken)
+            public async Task<IDataResult<ModelListModel>> Handle(GetModelListQuery request, CancellationToken cancellationToken)
             {
                 var models = await _modelRepository.GetListAsync(
                     index: request.PageRequest.Page,
                     size: request.PageRequest.PageSize
                     );
-                var mappedBrand = _mapper.Map<ModelListModel>(models);
+                var mappedModel = _mapper.Map<ModelListModel>(models);
 
-                return mappedBrand;
+                return new SuccessDataResult<ModelListModel>(mappedModel, Message.SuccessGet);
             }
         }
     }

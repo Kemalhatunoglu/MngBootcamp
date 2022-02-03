@@ -1,18 +1,20 @@
-﻿using Application.Features.Transmissions.Dtos;
+﻿using Application.Constants;
 using Application.Features.Transmissions.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
 using Domain.Entities.Concete;
 using MediatR;
 
 namespace Application.Features.Transmissions.Commends.UpdateTransmission
 {
-    public class UpdateTransmissionCommand : IRequest<TransmissionUpdateDto>
+    public class UpdateTransmissionCommand : IRequest<IResult>
     {
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public class UpdateTransmissionCommandHandler : IRequestHandler<UpdateTransmissionCommand, TransmissionUpdateDto>
+        public class UpdateTransmissionCommandHandler : IRequestHandler<UpdateTransmissionCommand, IResult>
         {
             private readonly ITransmissionRepository _transmissionRepository;
             private readonly IMapper _mapper;
@@ -25,16 +27,13 @@ namespace Application.Features.Transmissions.Commends.UpdateTransmission
                 _transmissionRepository = transmissionRepository;
             }
 
-            public async Task<TransmissionUpdateDto> Handle(UpdateTransmissionCommand request, CancellationToken cancellationToken)
+            public async Task<IResult> Handle(UpdateTransmissionCommand request, CancellationToken cancellationToken)
             {
-                var existTransmission = await _transmissionRepository.GetAsync(x => x.Id == request.Id);
-                if (existTransmission == null) throw new Exception("Brand referance exception");
-
                 await _transmissionBusinessRules.TransmissionNameCanNotBeDuplicatedWhenInserted(request.Name);
-                var updateModelTransmission = _mapper.Map<Transmission>(request);
+
+                Transmission updateModelTransmission = _mapper.Map<Transmission>(request);
                 await _transmissionRepository.UpdateAsync(updateModelTransmission);
-                var mappedReturnTransmissionDto = _mapper.Map<TransmissionUpdateDto>(updateModelTransmission);
-                return mappedReturnTransmissionDto;
+                return new SuccessResult(Message.SuccessUpdate);
             }
         }
     }

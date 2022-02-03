@@ -1,4 +1,5 @@
-﻿using Application.Services.Repositories;
+﻿using Application.Constants;
+using Application.Services.Repositories;
 using Core.CrossCuttingConcerns.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -21,13 +22,13 @@ namespace Application.Features.Models.Rules
         {
             var result = await _modelRepository.GetListAsync(x => x.Name == name);
             if (result.Items.Any())
-                throw new BusinessException("Model name exists");
+                throw new BusinessException(Message.ExistingData);
         }
 
         public void ModelDailyPriceCanNotBeLessThanZero(double price)
         {
             if (price < 0)
-                throw new BusinessException("Model daily price can't be less than zero");
+                throw new BusinessException(Message.ModelPriceCheck);
         }
 
     }

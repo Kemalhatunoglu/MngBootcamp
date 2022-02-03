@@ -1,4 +1,5 @@
-﻿using Application.Services.Repositories;
+﻿using Application.Constants;
+using Application.Services.Repositories;
 using Core.CrossCuttingConcerns.Exceptions;
 
 namespace Application.Features.Transmissions.Rules
@@ -16,7 +17,7 @@ namespace Application.Features.Transmissions.Rules
         {
             var result = await _transmissionRepository.GetListAsync(x => x.Name == name);
             if (result.Items.Any())
-                throw new BusinessException("Transmission name exists");
+                throw new BusinessException(Message.ExistingData);
         }
     }
 }

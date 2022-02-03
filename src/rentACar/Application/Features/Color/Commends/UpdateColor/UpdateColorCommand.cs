@@ -1,17 +1,19 @@
-﻿using Application.Features.Color.Dtos;
+﻿using Application.Constants;
 using Application.Features.Color.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Utilities.Results.Abstract;
+using Core.Utilities.Results.Concrete;
 using MediatR;
 
 namespace Application.Features.Color.Commends.UpdateColor
 {
-    public class UpdateColorCommand : IRequest<ColorUpdateDto>
+    public class UpdateColorCommand : IRequest<IResult>
     {
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public class UpdateColorCommandHandler : IRequestHandler<UpdateColorCommand, ColorUpdateDto>
+        public class UpdateColorCommandHandler : IRequestHandler<UpdateColorCommand, IResult>
         {
             private readonly IColorRepository _colorRepository;
             private readonly IMapper _mapper;
@@ -24,16 +26,13 @@ namespace Application.Features.Color.Commends.UpdateColor
                 _colorRepository = colorRepository;
             }
 
-            public async Task<ColorUpdateDto> Handle(UpdateColorCommand request, CancellationToken cancellationToken)
+            public async Task<IResult> Handle(UpdateColorCommand request, CancellationToken cancellationToken)
             {
-                var existColor = await _colorRepository.GetAsync(x => x.Id == request.Id);
-                if (existColor == null) throw new Exception("Color reference error.");
                 await _colorBusinessRules.ColorNameCanNotBeDuplicatedWhenInserted(request.Name);
 
-                existColor.Name = request.Name;
-                await _colorRepository.UpdateAsync(existColor);
-                var mappedColor = _mapper.Map<ColorUpdateDto>(existColor);
-                return mappedColor;
+                var updateModelColor = _mapper.Map<Domain.Entities.Concete.Color>(request);
+                await _colorRepository.UpdateAsync(updateModelColor);
+                return new SuccessResult(Message.SuccessUpdate);
             }
         }
     }

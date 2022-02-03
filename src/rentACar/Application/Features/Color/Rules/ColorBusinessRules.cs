@@ -1,4 +1,5 @@
-﻿using Application.Services.Repositories;
+﻿using Application.Constants;
+using Application.Services.Repositories;
 using Core.CrossCuttingConcerns.Exceptions;
 
 namespace Application.Features.Color.Rules
@@ -16,7 +17,7 @@ namespace Application.Features.Color.Rules
         {
             var result = await _colorRepository.GetListAsync(x => x.Name == name);
             if (result.Items.Any())
-                throw new BusinessException("Color name exists");
+                throw new BusinessException(Message.ExistingData);
         }
     }
 }

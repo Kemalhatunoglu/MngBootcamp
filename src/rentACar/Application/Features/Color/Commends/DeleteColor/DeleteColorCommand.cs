@@ -1,4 +1,5 @@
-﻿using Application.Services.Repositories;
+﻿using Application.Constants;
+using Application.Services.Repositories;
 using Core.CrossCuttingConcerns.Exceptions;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
@@ -21,11 +22,11 @@ namespace Application.Features.Color.Commends.DeleteColor
 
             public async Task<IResult> Handle(DeleteColorCommand request, CancellationToken cancellationToken)
             {
-                var result = await _colorRepository.GetAsync(c => c.Id == request.Id);
-                if (result == null)
-                    throw new BusinessException("There was an error in deletion.");
+                var colorToBeDeleted = await _colorRepository.GetAsync(c => c.Id == request.Id);
 
-                return new SuccessResult("The deletion was successful.");
+                if (colorToBeDeleted == null) return new ErrorResult(Message.ErrorDelete);
+                await _colorRepository.DeleteAsync(colorToBeDeleted);
+                return new SuccessResult(Message.SuccessDelete);
             }
         }
     }

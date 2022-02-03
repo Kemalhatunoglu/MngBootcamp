@@ -28,6 +28,13 @@
     <Folder Include="Features\Color\Tests\" />
     <Folder Include="Features\Fuel\Tests\" />
     <Folder Include="Features\Models\Tests\" />
+    <Folder Include="Features\Rentals\Commands\DeleteRental\" />
+    <Folder Include="Features\Rentals\Commands\UpdateRental\" />
+    <Folder Include="Features\Rentals\Dtos\" />
+    <Folder Include="Features\Rentals\Models\" />
+    <Folder Include="Features\Rentals\Tests\" />
+    <Folder Include="Features\Rentals\Queries\" />
+    <Folder Include="Features\Rentals\Profiles\" />
     <Folder Include="Features\Transmissions\Tests\" />
   </ItemGroup>
 
