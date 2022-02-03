@@ -1,4 +1,6 @@
 ﻿using Application.Features.Cars.Commends.CreateCar;
+using Application.Features.Cars.Commends.DeleteCar;
+using Application.Features.Cars.Commends.UpdateCar;
 using Application.Features.Cars.Queries;
 using Core.Application.Requests;
 using Microsoft.AspNetCore.Mvc;
@@ -17,16 +19,16 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut("update")]
-        public async Task<IActionResult> Update([FromBody] CreateCarCommand createCarCommand)
+        public async Task<IActionResult> Update([FromBody] UpdateCarCommand updateCarCommand)
         {
-            await Mediator.Send(createCarCommand);
+            await Mediator.Send(updateCarCommand);
             return Ok();
         }
 
         [HttpDelete("delete")]
-        public async Task<IActionResult> Delete([FromBody] CreateCarCommand createCarCommand)
+        public async Task<IActionResult> Delete([FromBody] DeleteCarCommand deleteCarCommand)
         {
-            await Mediator.Send(createCarCommand);
+            await Mediator.Send(deleteCarCommand);
             return Ok();
         }
 

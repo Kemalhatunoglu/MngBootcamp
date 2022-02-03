@@ -34,8 +34,8 @@ namespace Application.Features.Models.Commends.UpdateModel
             public async Task<IResult> Handle(UpdateModelCommand request, CancellationToken cancellationToken)
             {
                 var isExistModel = await _modelRepository.GetAsync(x => x.Id == request.Id);
-                await _modelBusinessRules.ModelNameCanNotBeDuplicatedWhenInserted(isExistModel.Name);
-                var mapperModel = _mapper.Map<Model>(isExistModel);
+                await _modelBusinessRules.ModelNameCanNotBeDuplicatedWhenInserted(request.Name);
+                var mapperModel = _mapper.Map<Model>(request);
                 await _modelRepository.UpdateAsync(mapperModel);
                 return new SuccessResult("The update has been performed.");
             }

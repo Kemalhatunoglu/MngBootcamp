@@ -5,6 +5,6 @@ namespace Application.Features.Cars.Models
 {
     public class CarListModel : BasePageableModel
     {
-        public List<CarListDto> CarItems { get; set; }
+        public List<CarListDto> Items { get; set; }
     }
 }

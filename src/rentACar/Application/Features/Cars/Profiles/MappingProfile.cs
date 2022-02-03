@@ -1,7 +1,7 @@
-﻿using Application.Features.Brands.Dtos;
-using Application.Features.Cars.Commends.CreateCar;
+﻿using Application.Features.Cars.Commends.CreateCar;
 using Application.Features.Cars.Commends.DeleteCar;
 using Application.Features.Cars.Commends.UpdateCar;
+using Application.Features.Cars.Dtos;
 using Application.Features.Cars.Models;
 using AutoMapper;
 using Core.Persistence.Paging;
@@ -17,7 +17,8 @@ namespace Application.Features.Cars.Profiles
             CreateMap<Car, UpdateCarCommand>().ReverseMap();
             CreateMap<Car, DeleteCarCommand>().ReverseMap();
 
-            CreateMap<Car, BrandListDto>().ReverseMap();
+            CreateMap<Car, CarListDto>().ReverseMap();
+
             CreateMap<IPaginate<Car>, CarListModel>().ReverseMap();
 
         }

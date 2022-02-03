@@ -22,9 +22,8 @@ namespace Application.Features.Transmissions.Commends.DeleteTransmission
             public async Task<IResult> Handle(DeleteTransmissionCommand request, CancellationToken cancellationToken)
             {
                 var result = await _transmissionRepository.GetAsync(c => c.Id == request.Id);
-                if (result == null)
-                    throw new BusinessException("There was an error in deletion.");
-
+                if (result == null) throw new BusinessException("There was an error in deletion.");
+                await _transmissionRepository.DeleteAsync(result);
                 return new SuccessResult("The deletion was successful.");
             }
         }

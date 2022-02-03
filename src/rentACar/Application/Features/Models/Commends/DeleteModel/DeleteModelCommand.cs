@@ -8,8 +8,6 @@ namespace Application.Features.Models.Commends.DeleteModel
     public class DeleteModelCommand : IRequest<IResult>
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-
         public class DeleteModelCommandHandler : IRequestHandler<DeleteModelCommand, IResult>
         {
             private readonly IModelRepository _modelRepository;
@@ -21,7 +19,7 @@ namespace Application.Features.Models.Commends.DeleteModel
 
             public async Task<IResult> Handle(DeleteModelCommand request, CancellationToken cancellationToken)
             {
-                var deleteModel = await _modelRepository.GetAsync(m => m.Name == request.Name);
+                var deleteModel = await _modelRepository.GetAsync(m => m.Id == request.Id);
 
                 if (deleteModel != null)
                 {

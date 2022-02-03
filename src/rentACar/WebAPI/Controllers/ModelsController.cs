@@ -1,7 +1,8 @@
 ﻿using Application.Features.Models.Commends.CreateModel;
+using Application.Features.Models.Commends.DeleteModel;
+using Application.Features.Models.Commends.UpdateModel;
 using Application.Features.Models.Queries;
 using Core.Application.Requests;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
@@ -18,16 +19,16 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut("update")]
-        public async Task<IActionResult> Update([FromBody] CreateModelCommand createModelCommand)
+        public async Task<IActionResult> Update([FromBody] UpdateModelCommand updateModelCommand)
         {
-            await Mediator.Send(createModelCommand);
+            await Mediator.Send(updateModelCommand);
             return Ok();
         }
 
         [HttpDelete("delete")]
-        public async Task<IActionResult> Delete([FromBody] CreateModelCommand createModelCommand)
+        public async Task<IActionResult> Delete([FromBody] DeleteModelCommand deleteModelCommand)
         {
-            await Mediator.Send(createModelCommand);
+            await Mediator.Send(deleteModelCommand);
             return Ok();
         }
 
