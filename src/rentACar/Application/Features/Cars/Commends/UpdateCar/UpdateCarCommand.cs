@@ -29,12 +29,8 @@ namespace Application.Features.Cars.Commends.UpdateCar
             public async Task<IResult> Handle(UpdateCarCommand request, CancellationToken cancellationToken)
             {
                 var isExistBrand = await _carRepository.GetAsync(x => x.Id == request.Id);
-
-
                 var mapperBrand = _mapper.Map<Car>(isExistBrand);
-
                 await _carRepository.UpdateAsync(mapperBrand);
-
                 return new SuccessResult("The update has been performed.");
             }
         }

@@ -18,7 +18,6 @@ namespace Application.Features.Brands.Commends.DeleteBrand
                 _brandRepository = brandRepository;
             }
 
-
             public async Task<IResult> Handle(DeleteBrandCommand request, CancellationToken cancellationToken)
             {
                 var deleteBrand = await _brandRepository.GetAsync(b => b.Id == request.Id);
@@ -26,9 +25,11 @@ namespace Application.Features.Brands.Commends.DeleteBrand
                 if (deleteBrand != null)
                 {
                     await _brandRepository.DeleteAsync(deleteBrand);
-                    return new SuccessResult("The deletion is complete.");
+                    return new SuccessResult("Deleted complete");
                 }
-                return new ErrorResult("Deletion failed.");
+                else
+                    return new ErrorResult("Error");
+
             }
         }
     }

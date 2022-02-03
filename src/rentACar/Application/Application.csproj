@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\corePackages\Core.Application\Core.Application.csproj" />
     <ProjectReference Include="..\..\corePackages\Core.CrossCuttingConcerns\Core.CrossCuttingConcerns.csproj" />
     <ProjectReference Include="..\..\corePackages\Core.Persistence\Core.Persistence.csproj" />
     <ProjectReference Include="..\..\corePackages\Core.Utilities\Core.Utilities.csproj" />
@@ -23,15 +24,11 @@
 
   <ItemGroup>
     <Folder Include="Features\Brands\Tests\" />
-    <Folder Include="Features\Brands\Queries\" />
-    <Folder Include="Features\Cars\Dtos\" />
-    <Folder Include="Features\Cars\Models\" />
-    <Folder Include="Features\Cars\Queries\" />
     <Folder Include="Features\Cars\Tests\" />
-    <Folder Include="Features\Models\Dtos\" />
-    <Folder Include="Features\Models\Models\" />
-    <Folder Include="Features\Models\Queries\" />
+    <Folder Include="Features\Color\Tests\" />
+    <Folder Include="Features\Fuel\Tests\" />
     <Folder Include="Features\Models\Tests\" />
+    <Folder Include="Features\Transmissions\Tests\" />
   </ItemGroup>
 
 </Project>

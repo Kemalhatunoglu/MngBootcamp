@@ -1,19 +1,18 @@
-﻿using Application.Features.Brands.Rules;
+﻿using Application.Features.Brands.Dtos;
+using Application.Features.Brands.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
-using Core.Utilities.Results.Abstract;
-using Core.Utilities.Results.Concrete;
 using Domain.Entities.Concete;
 using MediatR;
 
 namespace Application.Features.Brands.Commends.UpdateBrand
 {
-    public class UpdateBrandCommand : IRequest<IResult>
+    public class UpdateBrandCommand : IRequest<BrandUpdateDto>
     {
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public class UpdateBrandCommandHandler : IRequestHandler<UpdateBrandCommand, IResult>
+        public class UpdateBrandCommandHandler : IRequestHandler<UpdateBrandCommand, BrandUpdateDto>
         {
             private readonly IBrandRepository _brandRepository;
             private readonly IMapper _mapper;
@@ -25,14 +24,20 @@ namespace Application.Features.Brands.Commends.UpdateBrand
                 _brandBusinessRules = brandBusinessRules;
             }
 
-            public async Task<IResult> Handle(UpdateBrandCommand request, CancellationToken cancellationToken)
+            public async Task<BrandUpdateDto> Handle(UpdateBrandCommand request, CancellationToken cancellationToken)
             {
-                var isExistBrand = await _brandRepository.GetAsync(x => x.Id == request.Id);
-                await _brandBusinessRules.BrandNameCanNotBeDuplicatedWhenInserted(isExistBrand.Name);
-                var mapperBrand = _mapper.Map<Brand>(isExistBrand);
-                await _brandRepository.UpdateAsync(mapperBrand);
+                var existBrand = await _brandRepository.GetAsync(x => x.Id == request.Id);
+                if (existBrand == null) throw new Exception("Brand referance exception");
 
-                return new SuccessResult("The update has been performed.");
+                await _brandBusinessRules.BrandNameCanNotBeDuplicatedWhenInserted(request.Name);
+
+                var updateModelBrand = _mapper.Map<Brand>(request);
+
+                await _brandRepository.UpdateAsync(updateModelBrand);
+
+                var mappedReturnBrandDto = _mapper.Map<BrandUpdateDto>(updateModelBrand);
+                return mappedReturnBrandDto;
+
             }
         }
     }
