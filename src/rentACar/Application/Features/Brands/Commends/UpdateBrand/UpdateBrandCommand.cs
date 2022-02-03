@@ -26,16 +26,13 @@ namespace Application.Features.Brands.Commends.UpdateBrand
 
             public async Task<BrandUpdateDto> Handle(UpdateBrandCommand request, CancellationToken cancellationToken)
             {
-                var existBrand = _brandRepository.GetAsync(x => x.Id == request.Id).Result;
-                if (existBrand == null) throw new Exception("Brand referance exception");
-
+                //Brand existBrand = _brandRepository.GetAsync(x => x.Id == request.Id).Result;
+                //if (existBrand == null) throw new Exception("Brand referance exception");
                 await _brandBusinessRules.BrandNameCanNotBeDuplicatedWhenInserted(request.Name);
-                var updateModelBrand = _mapper.Map<Brand>(request);
+                Brand updateModelBrand = _mapper.Map<Brand>(request);
                 await _brandRepository.UpdateAsync(updateModelBrand);
-
-                var mappedReturnBrandDto = _mapper.Map<BrandUpdateDto>(updateModelBrand);
+                BrandUpdateDto mappedReturnBrandDto = _mapper.Map<BrandUpdateDto>(updateModelBrand);
                 return mappedReturnBrandDto;
-
             }
         }
     }
