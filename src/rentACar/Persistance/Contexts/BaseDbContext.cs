@@ -20,6 +20,8 @@ namespace Persistance
         public DbSet<Transmission> Transmissions { get; set; }
         public DbSet<Fuel> Fuels { get; set; }
         public DbSet<Rental> Rentals { get; set; }
+        public DbSet<CorporateCustomer> CorporateCustomers { get; set; }
+        public DbSet<IndividualCustomer> IndividualCustomers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -105,6 +107,28 @@ namespace Persistance
                 r.Property(p => p.EndDate).HasColumnName("EndDate").IsRequired();
                 r.Property(p => p.ReturnDate).HasColumnName("ReturnDate").IsRequired();
                 r.HasOne(p => p.Car);
+            });
+
+            modelBuilder.Entity<CorporateCustomer>(corp =>
+            {
+                corp.ToTable("CorporateCustomers").HasKey(key => key.Id);
+                corp.Property(p => p.Id).HasColumnName("Id");
+                corp.Property(p => p.Email).HasColumnName("Email").IsRequired();
+                corp.Property(p => p.Phone).HasColumnName("Phone").IsRequired();
+                corp.Property(p => p.CompanyName).HasColumnName("CompanyName").IsRequired();
+                corp.Property(p => p.TaxNo).HasColumnName("TaxNo").IsRequired();
+                corp.HasMany(p => p.Rentals);
+            });
+
+            modelBuilder.Entity<IndividualCustomer>(indivi =>
+            {
+                indivi.ToTable("IndividualCustomers").HasKey(key => key.Id);
+                indivi.Property(p => p.Id).HasColumnName("Id");
+                indivi.Property(p => p.Email).HasColumnName("Email").IsRequired();
+                indivi.Property(p => p.Phone).HasColumnName("Phone").IsRequired();
+                indivi.Property(p => p.FirstName).HasColumnName("FirstName").IsRequired();
+                indivi.Property(p => p.LastName).HasColumnName("LastName").IsRequired();
+                indivi.Property(p => p.NationalIdentity).HasColumnName("NationalIdentity").IsRequired();
             });
 
             //var brand1 = new Brand(1, "BMW");

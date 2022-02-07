@@ -9,12 +9,14 @@
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="11.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="FluentValidation" Version="10.3.6" />
     <PackageReference Include="MediatR" Version="10.0.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Core.Mailing\Core.Mailing.csproj" />
     <ProjectReference Include="..\..\corePackages\Core.Application\Core.Application.csproj" />
     <ProjectReference Include="..\..\corePackages\Core.CrossCuttingConcerns\Core.CrossCuttingConcerns.csproj" />
     <ProjectReference Include="..\..\corePackages\Core.Persistence\Core.Persistence.csproj" />
@@ -26,7 +28,11 @@
     <Folder Include="Features\Brands\Tests\" />
     <Folder Include="Features\Cars\Tests\" />
     <Folder Include="Features\Color\Tests\" />
+    <Folder Include="Features\CorporateCustomer\Rules\" />
+    <Folder Include="Features\CorporateCustomer\Tests\" />
     <Folder Include="Features\Fuel\Tests\" />
+    <Folder Include="Features\IndividualCustomer\Tests\" />
+    <Folder Include="Features\IndividualCustomer\Rules\" />
     <Folder Include="Features\Models\Tests\" />
     <Folder Include="Features\Rentals\Commands\DeleteRental\" />
     <Folder Include="Features\Rentals\Commands\UpdateRental\" />

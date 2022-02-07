@@ -5,7 +5,6 @@ namespace Domain.Entities.Concete
     public class Rental : Entity
     {
         public int CarId { get; set; }
-
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public DateTime? ReturnDate { get; set; }

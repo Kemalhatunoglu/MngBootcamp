@@ -25,7 +25,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.CrossCuttingConcerns",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Utilities", "src\corePackages\Core.Utilities\Core.Utilities.csproj", "{546A924B-E389-48CC-A22E-9E6E6F68CE35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Application", "src\corePackages\Core.Application\Core.Application.csproj", "{561FB494-6D94-4200-B515-192DBE89F9A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Application", "src\corePackages\Core.Application\Core.Application.csproj", "{561FB494-6D94-4200-B515-192DBE89F9A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Mailing", "Core.Mailing\Core.Mailing.csproj", "{DBACC04E-FAF2-4640-8F5A-8E993F29F4CE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +67,10 @@ Global
 		{561FB494-6D94-4200-B515-192DBE89F9A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{561FB494-6D94-4200-B515-192DBE89F9A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{561FB494-6D94-4200-B515-192DBE89F9A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBACC04E-FAF2-4640-8F5A-8E993F29F4CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBACC04E-FAF2-4640-8F5A-8E993F29F4CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBACC04E-FAF2-4640-8F5A-8E993F29F4CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBACC04E-FAF2-4640-8F5A-8E993F29F4CE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,6 +86,7 @@ Global
 		{A88B2552-4AB3-433D-85D1-774D9ABB62B0} = {57897D82-9957-4BE0-B288-3F5E94EF7272}
 		{546A924B-E389-48CC-A22E-9E6E6F68CE35} = {57897D82-9957-4BE0-B288-3F5E94EF7272}
 		{561FB494-6D94-4200-B515-192DBE89F9A4} = {57897D82-9957-4BE0-B288-3F5E94EF7272}
+		{DBACC04E-FAF2-4640-8F5A-8E993F29F4CE} = {57897D82-9957-4BE0-B288-3F5E94EF7272}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A9D9E3C0-D6E1-4FC5-A805-36BDF8ED52E9}

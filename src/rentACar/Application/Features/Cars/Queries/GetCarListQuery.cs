@@ -27,6 +27,7 @@ namespace Application.Features.Cars.Queries
             public async Task<IDataResult<CarListModel>> Handle(GetCarListQuery request, CancellationToken cancellationToken)
             {
                 var cars = await _carRepository.GetListAsync(
+                    c => c.CarState != Domain.Enums.CarState.Rented && c.CarState != Domain.Enums.CarState.Maintenance,
                     index: request.PageRequest.Page,
                     size: request.PageRequest.PageSize
                     );

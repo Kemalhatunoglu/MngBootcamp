@@ -58,6 +58,14 @@ namespace Persistance.Migrations
                         .HasColumnType("int")
                         .HasColumnName("ColorId");
 
+                    b.Property<DateTime?>("MaintainEndDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("MaintainEndDate");
+
+                    b.Property<DateTime?>("MaintainStartDate")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("MaintainStartDate");
+
                     b.Property<int>("ModelId")
                         .HasColumnType("int")
                         .HasColumnName("ModelId");
@@ -99,6 +107,40 @@ namespace Persistance.Migrations
                     b.ToTable("Colors", (string)null);
                 });
 
+            modelBuilder.Entity("Domain.Entities.Concete.CorporateCustomer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("CompanyName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("CompanyName");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Email");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Phone");
+
+                    b.Property<string>("TaxNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("TaxNo");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CorporateCustomers", (string)null);
+                });
+
             modelBuilder.Entity("Domain.Entities.Concete.Fuel", b =>
                 {
                     b.Property<int>("Id")
@@ -116,6 +158,45 @@ namespace Persistance.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Fuels", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Concete.IndividualCustomer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Email");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("FirstName");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("LastName");
+
+                    b.Property<string>("NationalIdentity")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("NationalIdentity");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Phone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IndividualCustomers", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Concete.Model", b =>
@@ -177,9 +258,15 @@ namespace Persistance.Migrations
                         .HasColumnType("int")
                         .HasColumnName("CarId");
 
+                    b.Property<int?>("CorporateCustomerId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("EndDate");
+
+                    b.Property<int?>("IndividualCustomerId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("ReturnDate")
                         .IsRequired()
@@ -193,6 +280,10 @@ namespace Persistance.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CarId");
+
+                    b.HasIndex("CorporateCustomerId");
+
+                    b.HasIndex("IndividualCustomerId");
 
                     b.ToTable("Rentals", (string)null);
                 });
@@ -270,6 +361,14 @@ namespace Persistance.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.Concete.CorporateCustomer", null)
+                        .WithMany("Rentals")
+                        .HasForeignKey("CorporateCustomerId");
+
+                    b.HasOne("Domain.Entities.Concete.IndividualCustomer", null)
+                        .WithMany("Rentals")
+                        .HasForeignKey("IndividualCustomerId");
+
                     b.Navigation("Car");
                 });
 
@@ -283,9 +382,19 @@ namespace Persistance.Migrations
                     b.Navigation("Cars");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Concete.CorporateCustomer", b =>
+                {
+                    b.Navigation("Rentals");
+                });
+
             modelBuilder.Entity("Domain.Entities.Concete.Fuel", b =>
                 {
                     b.Navigation("Models");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Concete.IndividualCustomer", b =>
+                {
+                    b.Navigation("Rentals");
                 });
 
             modelBuilder.Entity("Domain.Entities.Concete.Model", b =>

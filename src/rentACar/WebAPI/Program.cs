@@ -1,4 +1,6 @@
 using Application;
+using Core.Mailing;
+using Core.Mailing.MailkitImplementations;
 using Persistance;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddApplicationServices();
 builder.Services.AddPersistanceServices(builder.Configuration);
+builder.Services.AddSingleton<IMailService, MailkitMailService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
