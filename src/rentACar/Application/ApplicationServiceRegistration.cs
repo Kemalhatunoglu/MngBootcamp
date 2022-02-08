@@ -3,6 +3,7 @@ using Application.Features.Cars.Rules;
 using Application.Features.Color.Rules;
 using Application.Features.FindeksCredits.Rules;
 using Application.Features.Fuel.Rules;
+using Application.Features.Invoices.Rules.Application.Features.Invoices.Rules;
 using Application.Features.Models.Rules;
 using Application.Features.Rentals.Rules;
 using Application.Features.Transmissions.Rules;
@@ -30,6 +31,7 @@ namespace Application
             services.AddScoped<RentalBusinessRules>();
             services.AddScoped<TransmissionBusinessRules>();
             services.AddScoped<FindeksCreditBusinessRules>();
+            services.AddScoped<InvoiceBusinessRules>();
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
 

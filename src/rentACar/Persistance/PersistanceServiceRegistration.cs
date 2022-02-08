@@ -24,6 +24,7 @@ namespace Persistance
             services.AddScoped<ICorporateCustomerRepository, CorporateCustomerRepository>();
             services.AddScoped<IFindeksCreditRepository, FindeksCreditRepository>();
             services.AddScoped<IInvoiceRepository, InvoiceRepository>();
+            services.AddScoped<ICityRepository, CityRepository>();
 
             return services;
         }

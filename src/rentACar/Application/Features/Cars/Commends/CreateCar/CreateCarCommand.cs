@@ -5,6 +5,7 @@ using AutoMapper;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using Domain.Entities.Concete;
+using Domain.Enums;
 using MediatR;
 
 namespace Application.Features.Cars.Commends.CreateCar
@@ -13,8 +14,11 @@ namespace Application.Features.Cars.Commends.CreateCar
     {
         public int ModelId { get; set; }
         public int ColorId { get; set; }
+        public int CityId { get; set; }
         public string Plate { get; set; }
         public short ModelYear { get; set; }
+        public CarState CarState { get; set; }
+
 
         public class CreateCarCommandHandler : IRequestHandler<CreateCarCommand, IDataResult<Car>>
         {

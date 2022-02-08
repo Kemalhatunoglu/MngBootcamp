@@ -24,6 +24,7 @@ namespace Persistance
         public DbSet<IndividualCustomer> IndividualCustomers { get; set; }
         public DbSet<FindeksCredit> FindeksCredits { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<City> Cities { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -67,6 +68,7 @@ namespace Persistance
                 c.Property(x => x.Id).HasColumnName("Id").IsRequired();
                 c.Property(x => x.ModelId).HasColumnName("ModelId").IsRequired();
                 c.Property(x => x.ColorId).HasColumnName("ColorId").IsRequired();
+                c.Property(x => x.CityId).HasColumnName("CityId").IsRequired();
                 c.Property(x => x.Plate).HasColumnName("Plate").IsRequired();
                 c.Property(x => x.ModelYear).HasColumnName("ModelYear");
                 c.Property(x => x.CarState).HasColumnName("State");
@@ -157,6 +159,14 @@ namespace Persistance
                 inv.Property(p => p.CustomerId).HasColumnName("CustomerId").IsRequired();
                 inv.Property(p => p.CustomerType).HasColumnName("CustomerType").IsRequired();
                 inv.HasMany(p => p.Cars);
+            });
+
+            modelBuilder.Entity<City>(city =>
+            {
+                city.ToTable("Cities").HasKey(key => key.Id);
+                city.Property(p => p.Id).HasColumnName("Id");
+                city.Property(p => p.Name).HasColumnName("Name");
+                city.HasMany(p => p.Cars);
             });
 
             //var brand1 = new Brand(1, "BMW");
