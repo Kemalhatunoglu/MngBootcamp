@@ -14,7 +14,8 @@ namespace Application.Features.Invoices.Queries.GetInvoiceByDateQuery
         public PageRequest PageRequest { get; set; }
         public DateTime? RentStartDate { get; set; } = new DateTime(1990, 01, 01);
         public DateTime? RentEndDate { get; set; } = DateTime.Now;
-        public int InvoiceNo { get; set; }
+        //public int InvoiceNo { get; set; }
+
         public class GetInvoiceListByDateHandler : IRequestHandler<GetInvoiceListByDateQuery, IDataResult<InvoiceListModel>>
         {
             private readonly IInvoiceRepository _invoiceRepository;

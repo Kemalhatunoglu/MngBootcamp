@@ -5,6 +5,5 @@ namespace Application.Services.Repositories //Bu katman dış katmanlardan hizme
 {
     public interface IBrandRepository : IAsyncRepository<Brand>
     {
-
     }
 }
