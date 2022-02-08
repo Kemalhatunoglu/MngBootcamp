@@ -22,6 +22,7 @@
 
         public static string ModelPriceCheck => "Model daily price can't be less than zero";
 
+        public static string FindeksIsNotExist => "Findeks credit not exist";
 
     }
 }

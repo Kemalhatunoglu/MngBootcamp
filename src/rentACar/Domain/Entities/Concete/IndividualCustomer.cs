@@ -11,7 +11,7 @@
 
         }
 
-        public IndividualCustomer(int id, string email, string phone, string firstName, string lastName, string nationalIdentity) : base(id, email, phone)
+        public IndividualCustomer(int id, string email, string phone, float findeksRate, string firstName, string lastName, string nationalIdentity) : base(id, email, phone, findeksRate)
         {
             FirstName = firstName;
             LastName = lastName;

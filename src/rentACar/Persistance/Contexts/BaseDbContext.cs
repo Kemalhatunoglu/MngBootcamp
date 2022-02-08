@@ -22,6 +22,8 @@ namespace Persistance
         public DbSet<Rental> Rentals { get; set; }
         public DbSet<CorporateCustomer> CorporateCustomers { get; set; }
         public DbSet<IndividualCustomer> IndividualCustomers { get; set; }
+        public DbSet<FindeksCredit> FindeksCredits { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -117,6 +119,7 @@ namespace Persistance
                 corp.Property(p => p.Phone).HasColumnName("Phone").IsRequired();
                 corp.Property(p => p.CompanyName).HasColumnName("CompanyName").IsRequired();
                 corp.Property(p => p.TaxNo).HasColumnName("TaxNo").IsRequired();
+                corp.Property(p => p.FindeksRate).HasColumnName("FindeksRate").IsRequired();
                 corp.HasMany(p => p.Rentals);
             });
 
@@ -129,6 +132,31 @@ namespace Persistance
                 indivi.Property(p => p.FirstName).HasColumnName("FirstName").IsRequired();
                 indivi.Property(p => p.LastName).HasColumnName("LastName").IsRequired();
                 indivi.Property(p => p.NationalIdentity).HasColumnName("NationalIdentity").IsRequired();
+                indivi.Property(p => p.FindeksRate).HasColumnName("FindeksRate").IsRequired();
+            });
+
+            modelBuilder.Entity<FindeksCredit>(b =>
+            {
+                b.ToTable("FindeksCredits").HasKey(key => key.Id);
+                b.Property(p => p.Id).HasColumnName("Id");
+                b.Property(p => p.CustomerId).HasColumnName("CustomerId").IsRequired();
+                b.Property(p => p.CustomerType).HasColumnName("CustomerType").IsRequired();
+                b.Property(p => p.Score).HasColumnName("Score").IsRequired();
+            });
+
+            modelBuilder.Entity<Invoice>(inv =>
+            {
+                inv.ToTable("Invoices").HasKey(key => key.Id);
+                inv.Property(p => p.Id).HasColumnName("Id");
+                inv.Property(p => p.InvoiceNo).HasColumnName("InvoiceNo").IsRequired();
+                inv.Property(p => p.CreationDate).HasColumnName("CreationDate").IsRequired();
+                inv.Property(p => p.RentalStartDate).HasColumnName("RentalStartDate").IsRequired();
+                inv.Property(p => p.RentalEndDate).HasColumnName("RetuRentalEndDaternDate").IsRequired();
+                inv.Property(p => p.RentalDayCount).HasColumnName("RentalDayCount").IsRequired();
+                inv.Property(p => p.TotalFee).HasColumnName("TotalFee").IsRequired();
+                inv.Property(p => p.CustomerId).HasColumnName("CustomerId").IsRequired();
+                inv.Property(p => p.CustomerType).HasColumnName("CustomerType").IsRequired();
+                inv.HasMany(p => p.Cars);
             });
 
             //var brand1 = new Brand(1, "BMW");

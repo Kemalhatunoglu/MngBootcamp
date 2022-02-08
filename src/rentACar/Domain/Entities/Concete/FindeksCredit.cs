@@ -6,7 +6,7 @@ namespace Domain.Entities.Concete
     public class FindeksCredit : Entity
     {
         public int CustomerId { get; set; }
-        public float Score { get; set; } = 1900;
+        public float Score { get; set; }
         public CustomerType CustomerType { get; set; }
 
         public FindeksCredit()

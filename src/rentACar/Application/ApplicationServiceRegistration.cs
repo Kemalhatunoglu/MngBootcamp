@@ -1,6 +1,7 @@
 ﻿using Application.Features.Brands.Rules;
 using Application.Features.Cars.Rules;
 using Application.Features.Color.Rules;
+using Application.Features.FindeksCredits.Rules;
 using Application.Features.Fuel.Rules;
 using Application.Features.Models.Rules;
 using Application.Features.Rentals.Rules;
@@ -28,6 +29,7 @@ namespace Application
             services.AddScoped<FuelBusinessRules>();
             services.AddScoped<RentalBusinessRules>();
             services.AddScoped<TransmissionBusinessRules>();
+            services.AddScoped<FindeksCreditBusinessRules>();
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
 

@@ -10,7 +10,7 @@
 
         }
 
-        public CorporateCustomer(int id, string email, string phone, string companyName, string taxNo) : base(id, email, phone)
+        public CorporateCustomer(int id, string email, string phone, float findeksRate, string companyName, string taxNo) : base(id, email, phone, findeksRate)
         {
             CompanyName = companyName;
             TaxNo = taxNo;
