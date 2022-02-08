@@ -8,23 +8,19 @@ using Core.Utilities.Results.Concrete;
 using Domain.Entities.Concete;
 using Domain.Enums;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.Rentals.Commands.CreateRental
 {
     public class CreateRentalCommand : IRequest<IDataResult<Rental>>
     {
         public int CarId { get; set; }
+        public int CustomerId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public DateTime? ReturnDate { get; set; }
         public CarState CarState { get; set; }
         public DateTime? MaintainStartDate { get; set; }
         public DateTime? MaintainEndDate { get; set; }
+        public int RentedCityId { get; set; }
 
         public class CreateRentalCommandHandler : IRequestHandler<CreateRentalCommand, IDataResult<Rental>>
         {

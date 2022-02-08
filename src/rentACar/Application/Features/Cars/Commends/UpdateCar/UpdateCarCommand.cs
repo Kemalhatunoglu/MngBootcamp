@@ -21,7 +21,7 @@ namespace Application.Features.Cars.Commends.UpdateCar
         public CarState CarState { get; set; }
         public DateTime? MaintainStartDate { get; set; }
         public DateTime? MaintainEndDate { get; set; }
-
+        public double? FinishKm { get; set; }
 
         public class UpdateCarCommandHandler : IRequestHandler<UpdateCarCommand, IResult>
         {

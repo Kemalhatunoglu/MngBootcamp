@@ -18,7 +18,7 @@ namespace Application.Features.Cars.Commends.CreateCar
         public string Plate { get; set; }
         public short ModelYear { get; set; }
         public CarState CarState { get; set; }
-
+        public double StartingKm { get; set; }
 
         public class CreateCarCommandHandler : IRequestHandler<CreateCarCommand, IDataResult<Car>>
         {

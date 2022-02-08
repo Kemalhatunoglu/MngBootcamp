@@ -24,5 +24,7 @@
 
         public static string FindeksIsNotExist => "Findeks credit not exist";
 
+        public static string CarDeliveryIsDifferent => "Car delivery point is different";
+
     }
 }

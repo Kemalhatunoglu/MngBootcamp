@@ -25,6 +25,7 @@ namespace Persistance
         public DbSet<FindeksCredit> FindeksCredits { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<City> Cities { get; set; }
+        public DbSet<DamageRecord> DamageRecords { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -107,6 +108,7 @@ namespace Persistance
                 r.ToTable("Rentals").HasKey(key => key.Id);
                 r.Property(p => p.Id).HasColumnName("Id");
                 r.Property(p => p.CarId).HasColumnName("CarId").IsRequired();
+                r.Property(p => p.CustomerId).HasColumnName("CustomerId").IsRequired();
                 r.Property(p => p.StartDate).HasColumnName("StartDate").IsRequired();
                 r.Property(p => p.EndDate).HasColumnName("EndDate").IsRequired();
                 r.Property(p => p.ReturnDate).HasColumnName("ReturnDate").IsRequired();
@@ -168,6 +170,16 @@ namespace Persistance
                 city.Property(p => p.Name).HasColumnName("Name");
                 city.HasMany(p => p.Cars);
             });
+
+            modelBuilder.Entity<DamageRecord>(b =>
+            {
+                b.ToTable("DamageRecords").HasKey(key => key.Id);
+                b.Property(p => p.Id).HasColumnName("Id");
+                b.Property(p => p.CarId).HasColumnName("CarId").IsRequired();
+                b.Property(p => p.DamageExp).HasColumnName("DamageExp").IsRequired();
+                b.HasOne(p => p.Car);
+            });
+
 
             //var brand1 = new Brand(1, "BMW");
             //var brand2 = new Brand(2, "Mercedes");
