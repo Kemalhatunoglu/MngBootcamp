@@ -1,4 +1,5 @@
-﻿using Domain.Entities.Concete;
+﻿using Core.Security.Entities;
+using Domain.Entities.Concete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
@@ -26,6 +27,9 @@ namespace Persistance
         public DbSet<Invoice> Invoices { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<DamageRecord> DamageRecords { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<OperationClaim> OperationClaims { get; set; }
+        public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -180,6 +184,36 @@ namespace Persistance
                 b.HasOne(p => p.Car);
             });
 
+            modelBuilder.Entity<User>(b =>
+            {
+                b.ToTable("Users").HasKey(key => key.Id);
+                b.Property(p => p.Id).HasColumnName("Id");
+                b.Property(p => p.FirstName).HasColumnName("FirstName").IsRequired();
+                b.Property(p => p.LastName).HasColumnName("LastName").IsRequired();
+                b.Property(p => p.Email).HasColumnName("Email").IsRequired();
+                b.Property(p => p.PasswordHash).HasColumnName("CaPasswordHashrId").IsRequired();
+                b.Property(p => p.PasswordSalt).HasColumnName("PasswordSalt").IsRequired();
+                b.Property(p => p.Status).HasColumnName("Status").IsRequired();
+            });
+
+            modelBuilder.Entity<OperationClaim>(b =>
+            {
+                b.ToTable("OperationClaims").HasKey(key => key.Id);
+                b.Property(p => p.Id).HasColumnName("Id");
+                b.Property(p => p.Name).HasColumnName("Name").IsRequired();
+
+            });
+
+            modelBuilder.Entity<UserOperationClaim>(b =>
+            {
+                b.ToTable("UserOperationClaims").HasKey(key => key.Id);
+                b.Property(p => p.Id).HasColumnName("Id");
+                b.Property(p => p.UserId).HasColumnName("UserId").IsRequired();
+                b.Property(p => p.OperationClaimId).HasColumnName("OperationClaimId").IsRequired();
+                b.HasMany(x => x.OperationClaims);
+                b.HasOne(x => x.User);
+
+            });
 
             //var brand1 = new Brand(1, "BMW");
             //var brand2 = new Brand(2, "Mercedes");

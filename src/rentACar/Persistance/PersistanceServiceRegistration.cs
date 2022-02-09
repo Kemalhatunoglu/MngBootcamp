@@ -1,4 +1,5 @@
 ﻿using Application.Services.Repositories;
+using Core.Security.Jwt;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +27,11 @@ namespace Persistance
             services.AddScoped<IInvoiceRepository, InvoiceRepository>();
             services.AddScoped<ICityRepository, CityRepository>();
             services.AddScoped<IDamageRecordRepository, DamageRecordRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserOperationClaimRepository, UserOperationClaimRepository>();
+            services.AddScoped<IOperationClaimRepository, OperationClaimRepository>();
+            services.AddScoped<ITokenHelper, JwtHelper>();
+
 
             return services;
         }

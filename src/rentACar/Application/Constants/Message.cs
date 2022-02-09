@@ -25,6 +25,14 @@
         public static string FindeksIsNotExist => "Findeks credit not exist";
 
         public static string CarDeliveryIsDifferent => "Car delivery point is different";
+        public static string UserRegistered => "User registered successfully";
+        public static string NameAlreadyExist => "Name already exist.";
+        public static string PasswordLength => "Password length is not enough.";
+        public static string UserNotFound => "User not found";
+        public static string PasswordError => "Password error";
+        public static string SuccessfulLogin => "Successful login";
+        public static string OperationClaimExists => "Operation claim already exists";
+
 
     }
 }

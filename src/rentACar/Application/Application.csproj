@@ -20,11 +20,18 @@
     <ProjectReference Include="..\..\corePackages\Core.Application\Core.Application.csproj" />
     <ProjectReference Include="..\..\corePackages\Core.CrossCuttingConcerns\Core.CrossCuttingConcerns.csproj" />
     <ProjectReference Include="..\..\corePackages\Core.Persistence\Core.Persistence.csproj" />
+    <ProjectReference Include="..\..\corePackages\Core.Security\Core.Security.csproj" />
     <ProjectReference Include="..\..\corePackages\Core.Utilities\Core.Utilities.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\Authorizations\Dtos\" />
+    <Folder Include="Features\Authorizations\Models\" />
+    <Folder Include="Features\Authorizations\Profiles\" />
+    <Folder Include="Features\Authorizations\Tests\" />
+    <Folder Include="Features\Authorizations\Rules\" />
+    <Folder Include="Features\Authorizations\Queries\" />
     <Folder Include="Features\Brands\Tests\" />
     <Folder Include="Features\Cars\Tests\" />
     <Folder Include="Features\Cities\Tests\" />
@@ -40,8 +47,20 @@
     <Folder Include="Features\IndividualCustomer\Rules\" />
     <Folder Include="Features\Invoices\Tests\" />
     <Folder Include="Features\Models\Tests\" />
+    <Folder Include="Features\OperationClaims\Dtos\" />
+    <Folder Include="Features\OperationClaims\Models\" />
+    <Folder Include="Features\OperationClaims\Queries\" />
+    <Folder Include="Features\OperationClaims\Rules\" />
+    <Folder Include="Features\OperationClaims\Tests\" />
     <Folder Include="Features\Rentals\Tests\" />
     <Folder Include="Features\Transmissions\Tests\" />
+    <Folder Include="Features\UserClaims\Dtos\" />
+    <Folder Include="Features\UserClaims\Models\" />
+    <Folder Include="Features\UserClaims\Tests\" />
+    <Folder Include="Features\UserClaims\Rules\" />
+    <Folder Include="Features\UserClaims\Queries\" />
+    <Folder Include="Features\Users\Tests\" />
+    <Folder Include="Features\Users\Rules\" />
   </ItemGroup>
 
 </Project>
