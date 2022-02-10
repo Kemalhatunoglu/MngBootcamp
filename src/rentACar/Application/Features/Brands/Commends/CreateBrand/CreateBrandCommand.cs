@@ -2,6 +2,7 @@
 using Application.Features.Brands.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Logging;
 using Core.Mailing;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
@@ -10,7 +11,7 @@ using MediatR;
 
 namespace Application.Features.Brands.Commends.CreateBrand
 {
-    public class CreateBrandCommand : IRequest<IDataResult<Brand>>
+    public class CreateBrandCommand : IRequest<IDataResult<Brand>>, ILoggableRequest
     {
         public string Name { get; set; }
 
@@ -35,14 +36,14 @@ namespace Application.Features.Brands.Commends.CreateBrand
                 Brand mappedBrand = _mapper.Map<Brand>(request);
                 Brand brandToAdd = await _brandRepository.AddAsync(mappedBrand);
 
-                Mail mail = new Mail
-                {
-                    ToFullName = "Engin Demiroğ",
-                    ToEmail = "Admins@mng.com.tr",
-                    Subject = "New Brand Added",
-                    HtmlBody = "Hey, check the sistem"
-                };
-                _mailService.SendMail(mail);
+                //Mail mail = new Mail
+                //{
+                //    ToFullName = "Engin Demiroğ",
+                //    ToEmail = "Admins@mng.com.tr",
+                //    Subject = "New Brand Added",
+                //    HtmlBody = "Hey, check the sistem"
+                //};
+                //_mailService.SendMail(mail);
 
                 return new SuccessDataResult<Brand>(brandToAdd, Message.SuccessCreate);
             }

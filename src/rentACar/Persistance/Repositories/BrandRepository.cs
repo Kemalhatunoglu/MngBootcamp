@@ -8,7 +8,7 @@ namespace Persistance.Repositories
     {
         public BrandRepository(BaseDbContext context) : base(context)
         {
-
+            
         }
     }
 }
