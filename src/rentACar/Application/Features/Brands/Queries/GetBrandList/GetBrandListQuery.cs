@@ -2,6 +2,7 @@
 using Application.Features.Brands.Models;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Caching;
 using Core.Application.Requests;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
@@ -9,11 +10,14 @@ using MediatR;
 
 namespace Application.Features.Brands.Queries.GetBrandList
 {
-    public class GetBrandListQuery : IRequest<IDataResult<BrandListModel>>
+    public class GetBrandListQuery : IRequest<BrandListModel>, ICachableRequest
     {
         public PageRequest PageRequest { get; set; }
+        public bool BypassCache { get; set; }
+        public string CacheKey => "brands-list";
+        public TimeSpan? SlidingExpiration { get; set; }
 
-        public class GetBrandListQueryHandler : IRequestHandler<GetBrandListQuery, IDataResult<BrandListModel>>
+        public class GetBrandListQueryHandler : IRequestHandler<GetBrandListQuery, BrandListModel>
         {
             private readonly IBrandRepository _brandRepository;
             private readonly IMapper _mapper;
@@ -24,7 +28,7 @@ namespace Application.Features.Brands.Queries.GetBrandList
                 _mapper = mapper;
             }
 
-            public async Task<IDataResult<BrandListModel>> Handle(GetBrandListQuery request, CancellationToken cancellationToken)
+            public async Task<BrandListModel> Handle(GetBrandListQuery request, CancellationToken cancellationToken)
             {
                 var brands = await _brandRepository.GetListAsync(
                     index: request.PageRequest.Page,
@@ -32,7 +36,7 @@ namespace Application.Features.Brands.Queries.GetBrandList
                     );
                 var mappedBrand = _mapper.Map<BrandListModel>(brands);
 
-                return new SuccessDataResult<BrandListModel>(mappedBrand, Message.SuccessGet);
+                return mappedBrand; // new SuccessDataResult<BrandListModel>(mappedBrand, Message.SuccessGet);
             }
         }
     }

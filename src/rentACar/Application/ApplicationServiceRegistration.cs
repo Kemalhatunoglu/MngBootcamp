@@ -7,6 +7,7 @@ using Application.Features.Invoices.Rules.Application.Features.Invoices.Rules;
 using Application.Features.Models.Rules;
 using Application.Features.Rentals.Rules;
 using Application.Features.Transmissions.Rules;
+using Core.Application.Pipelines.Caching;
 using Core.Application.Pipelines.Logging;
 using Core.Application.Pipelines.Validations;
 using Core.CrossCuttingConcerns.Logging.Serilog;
@@ -39,6 +40,7 @@ namespace Application
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
 
             return services;
         }

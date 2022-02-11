@@ -1,9 +1,10 @@
 using Application;
+using Core.Application.Pipelines.Caching;
+using Core.CrossCuttingConcerns.Exceptions;
 using Core.Mailing;
 using Core.Mailing.MailkitImplementations;
-using Persistance;
 using Infrastructure;
-using Core.CrossCuttingConcerns.Exceptions;
+using Persistance;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +17,11 @@ builder.Services.AddPersistanceServices(builder.Configuration);
 builder.Services.AddInfrastructureServices();
 builder.Services.AddSingleton<IMailService, MailkitMailService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddSingleton<CacheSettings>();
+
+//builder.Services.AddDistributedMemoryCache();in memory çalýþýr hale gelir.
+builder.Services.AddStackExchangeRedisCache(option => option.Configuration = "localhost:6379");
+builder.Services.Configure<CacheSettings>(builder.Configuration.GetSection("CacheSettings"));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
