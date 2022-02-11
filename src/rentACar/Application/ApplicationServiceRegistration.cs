@@ -12,6 +12,7 @@ using Core.Application.Pipelines.Logging;
 using Core.Application.Pipelines.Validations;
 using Core.CrossCuttingConcerns.Logging.Serilog;
 using Core.CrossCuttingConcerns.Logging.Serilog.Loggers;
+using Core.ElasticSearch;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +28,7 @@ namespace Application
             services.AddMediatR(Assembly.GetExecutingAssembly());
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddSingleton<LoggerServiceBase, FileLogger>();
+            services.AddSingleton<IElasticSearch, ElasticSearchManager>();
 
             services.AddScoped<BrandBusinessRules>();
             services.AddScoped<ModelBusinessRules>();

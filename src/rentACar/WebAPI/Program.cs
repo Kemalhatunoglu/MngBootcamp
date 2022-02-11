@@ -17,7 +17,7 @@ builder.Services.AddPersistanceServices(builder.Configuration);
 builder.Services.AddInfrastructureServices();
 builder.Services.AddSingleton<IMailService, MailkitMailService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-builder.Services.AddSingleton<CacheSettings>();
+
 
 //builder.Services.AddDistributedMemoryCache();in memory çalýþýr hale gelir.
 builder.Services.AddStackExchangeRedisCache(option => option.Configuration = "localhost:6379");

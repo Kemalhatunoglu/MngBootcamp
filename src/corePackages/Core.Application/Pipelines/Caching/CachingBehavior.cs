@@ -15,8 +15,7 @@ namespace Core.Application.Pipelines.Caching
     {
         IDistributedCache _cache;
         CacheSettings _settings;
-        ILogger _logger;
-
+        ILogger<CachingBehavior<TRequest, TResponse>> _logger;
 
         public CachingBehavior(IDistributedCache cache)
         {
