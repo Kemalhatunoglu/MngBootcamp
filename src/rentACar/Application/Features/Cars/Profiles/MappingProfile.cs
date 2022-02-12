@@ -9,13 +9,15 @@ using Domain.Entities.Concete;
 
 namespace Application.Features.Cars.Profiles
 {
-    public class MappingProfile:Profile
+    public class MappingProfile : Profile
     {
         public MappingProfile()
         {
             CreateMap<Car, CreateCarCommand>().ReverseMap();
             CreateMap<Car, UpdateCarCommand>().ReverseMap();
             CreateMap<Car, DeleteCarCommand>().ReverseMap();
+            CreateMap<Car, UpdateCarStateCommand>().ReverseMap();
+            CreateMap<Car, CarCommandDto>().ReverseMap();
 
             CreateMap<Car, CarListDto>().ReverseMap();
 

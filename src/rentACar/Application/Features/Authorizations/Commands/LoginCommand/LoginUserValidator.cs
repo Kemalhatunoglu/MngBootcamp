@@ -1,9 +1,4 @@
 ﻿using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Features.Authorizations.Commands.LoginCommand
 {
@@ -11,8 +6,8 @@ namespace Application.Features.Authorizations.Commands.LoginCommand
     {
         public LoginUserValidator()
         {
-            RuleFor(p => p.Password).NotEmpty();
-            RuleFor(e => e.Email).NotEmpty();
+            RuleFor(p => p.UserForLogin.Password).NotEmpty();
+            RuleFor(e => e.UserForLogin.Email).NotEmpty();
         }
     }
 }

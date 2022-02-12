@@ -1,16 +1,12 @@
-﻿using Application.Constants;
-using Application.Features.Brands.Models;
+﻿using Application.Features.Brands.Models;
 using Application.Services.Repositories;
 using AutoMapper;
-using Core.Application.Pipelines.Caching;
 using Core.Application.Requests;
-using Core.Utilities.Results.Abstract;
-using Core.Utilities.Results.Concrete;
 using MediatR;
 
 namespace Application.Features.Brands.Queries.GetBrandList
 {
-    public class GetBrandListQuery : IRequest<BrandListModel>, ICachableRequest
+    public class GetBrandListQuery : IRequest<BrandListModel>//, ICachableRequest
     {
         public PageRequest PageRequest { get; set; }
         public bool BypassCache { get; set; }

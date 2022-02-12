@@ -1,8 +1,8 @@
 ﻿using Application.Constants;
+using Application.Features.Brands.Dtos;
 using Application.Features.Brands.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
-using Core.Application.Pipelines.Logging;
 using Core.Mailing;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
@@ -11,11 +11,11 @@ using MediatR;
 
 namespace Application.Features.Brands.Commends.CreateBrand
 {
-    public class CreateBrandCommand : IRequest<IDataResult<Brand>>, ILoggableRequest
+    public class CreateBrandCommand : IRequest<IDataResult<BrandCommandDto>>
     {
         public string Name { get; set; }
 
-        public class CreateBrandCommandHandler : IRequestHandler<CreateBrandCommand, IDataResult<Brand>>
+        public class CreateBrandCommandHandler : IRequestHandler<CreateBrandCommand, IDataResult<BrandCommandDto>>
         {
             private readonly IBrandRepository _brandRepository;
             private readonly IMapper _mapper;
@@ -30,12 +30,14 @@ namespace Application.Features.Brands.Commends.CreateBrand
                 _mailService = mailService;
             }
 
-            public async Task<IDataResult<Brand>> Handle(CreateBrandCommand request, CancellationToken cancellationToken)
+            public async Task<IDataResult<BrandCommandDto>> Handle(CreateBrandCommand request, CancellationToken cancellationToken)
             {
                 await _brandBusinessRules.BrandNameCanNotBeDuplicatedWhenInserted(request.Name);
                 Brand mappedBrand = _mapper.Map<Brand>(request);
                 Brand brandToAdd = await _brandRepository.AddAsync(mappedBrand);
+                var mapToDto = _mapper.Map<BrandCommandDto>(brandToAdd);
 
+                #region MailAdded
                 //Mail mail = new Mail
                 //{
                 //    ToFullName = "Engin Demiroğ",
@@ -44,12 +46,10 @@ namespace Application.Features.Brands.Commends.CreateBrand
                 //    HtmlBody = "Hey, check the sistem"
                 //};
                 //_mailService.SendMail(mail);
+                #endregion
 
-                return new SuccessDataResult<Brand>(brandToAdd, Message.SuccessCreate);
+                return new SuccessDataResult<BrandCommandDto>(mapToDto, Message.SuccessCreate);
             }
         }
     }
 }
-//Cqrs de her şey domain nesnesi açısından gider. Bu işi yapacak domain nesnemize karşılık gelir.
-//Mediatr Patternleri kullanır. Btk da C# dersini izle.
-//Code Generater nedir.

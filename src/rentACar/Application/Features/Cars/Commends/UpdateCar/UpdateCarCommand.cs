@@ -5,7 +5,6 @@ using AutoMapper;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using Domain.Entities.Concete;
-using Domain.Enums;
 using MediatR;
 
 namespace Application.Features.Cars.Commends.UpdateCar
@@ -18,10 +17,8 @@ namespace Application.Features.Cars.Commends.UpdateCar
         public int CityId { get; set; }
         public string Plate { get; set; }
         public short ModelYear { get; set; }
-        public CarState CarState { get; set; }
         public DateTime? MaintainStartDate { get; set; }
         public DateTime? MaintainEndDate { get; set; }
-        public double? FinishKm { get; set; }
 
         public class UpdateCarCommandHandler : IRequestHandler<UpdateCarCommand, IResult>
         {
@@ -38,6 +35,9 @@ namespace Application.Features.Cars.Commends.UpdateCar
 
             public async Task<IResult> Handle(UpdateCarCommand request, CancellationToken cancellationToken)
             {
+                await _carBusinessRules.CarPlateMustBeUnique(request.Plate);
+                await _carBusinessRules.ModelYearCanNotBeGreaterThanCurrentYear(request.ModelYear);
+
                 Car mappedCar = _mapper.Map<Car>(request);
                 await _carRepository.UpdateAsync(mappedCar);
                 return new SuccessResult(Message.SuccessUpdate);

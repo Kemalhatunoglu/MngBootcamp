@@ -1,4 +1,5 @@
 ﻿using Application.Constants;
+using Application.Features.Cars.Dtos;
 using Application.Features.Cars.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
@@ -10,7 +11,7 @@ using MediatR;
 
 namespace Application.Features.Cars.Commends.CreateCar
 {
-    public class CreateCarCommand : IRequest<IDataResult<Car>>
+    public class CreateCarCommand : IRequest<IDataResult<CarCommandDto>>
     {
         public int ModelId { get; set; }
         public int ColorId { get; set; }
@@ -20,7 +21,7 @@ namespace Application.Features.Cars.Commends.CreateCar
         public CarState CarState { get; set; }
         public double StartingKm { get; set; }
 
-        public class CreateCarCommandHandler : IRequestHandler<CreateCarCommand, IDataResult<Car>>
+        public class CreateCarCommandHandler : IRequestHandler<CreateCarCommand, IDataResult<CarCommandDto>>
         {
             private readonly ICarRepository _carRepository;
             private readonly IMapper _mapper;
@@ -33,14 +34,15 @@ namespace Application.Features.Cars.Commends.CreateCar
                 _carRepository = carRepository;
             }
 
-            public async Task<IDataResult<Car>> Handle(CreateCarCommand request, CancellationToken cancellationToken)
+            public async Task<IDataResult<CarCommandDto>> Handle(CreateCarCommand request, CancellationToken cancellationToken)
             {
-                _carBusinessRules.CarPlateMustBeUnique(request.Plate);
-                _carBusinessRules.ModelYearCanNotBeGreaterThanCurrentYear(request.ModelYear);
+                await _carBusinessRules.CarPlateMustBeUnique(request.Plate);
+                await _carBusinessRules.ModelYearCanNotBeGreaterThanCurrentYear(request.ModelYear);
 
                 Car mappedCar = _mapper.Map<Car>(request);
                 Car carToAdd = await _carRepository.AddAsync(mappedCar);
-                return new SuccessDataResult<Car>(carToAdd, Message.SuccessCreate);
+                var mapToDto = _mapper.Map<CarCommandDto>(carToAdd);
+                return new SuccessDataResult<CarCommandDto>(mapToDto, Message.SuccessCreate);
             }
         }
     }

@@ -16,15 +16,15 @@ namespace Application.Features.Cars.Rules
             _carRepository = carRepository;
         }
 
-        public void CarPlateMustBeUnique(string plate)
+        public async Task CarPlateMustBeUnique(string plate)
         {
             Regex regex = new("(0[1-9]|[1-7][0-9]|8[01])(([A-Z])(\\d{4,5})|([A-Z]{2})(\\d{3,4})|([A-Z]{3})(\\d{2}))");
             bool isCorrent = regex.IsMatch(plate);
 
-            if (!isCorrent) throw new BusinessException(Message.ModelYearCheck);
+            if (!isCorrent) throw new BusinessException(Message.PlateNotValid);
         }
 
-        public void ModelYearCanNotBeGreaterThanCurrentYear(short modelYear)
+        public async Task ModelYearCanNotBeGreaterThanCurrentYear(short modelYear)
         {
             var currentYear = DateTime.Now.Year;
             if (modelYear > currentYear) throw new BusinessException(Message.ModelYearCheck);

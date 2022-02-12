@@ -16,6 +16,7 @@ namespace Domain.Entities.Concete
 
         public Rental()
         {
+
         }
 
         public Rental(int id, int carId, DateTime startDate, DateTime endDate, DateTime? returnDate)

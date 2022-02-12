@@ -25,6 +25,13 @@ namespace WebAPI.Controllers
             return Ok();
         }
 
+        [HttpPut("car-state-update")]
+        public async Task<IActionResult> CarStateUpdate([FromBody] UpdateCarStateCommand updateCarStateCommand)
+        {
+            await Mediator.Send(updateCarStateCommand);
+            return Ok();
+        }
+
         [HttpDelete("delete")]
         public async Task<IActionResult> Delete([FromBody] DeleteCarCommand deleteCarCommand)
         {

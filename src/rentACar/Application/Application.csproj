@@ -31,7 +31,6 @@
     <Folder Include="Features\Authorizations\Models\" />
     <Folder Include="Features\Authorizations\Profiles\" />
     <Folder Include="Features\Authorizations\Tests\" />
-    <Folder Include="Features\Authorizations\Rules\" />
     <Folder Include="Features\Authorizations\Queries\" />
     <Folder Include="Features\Brands\Tests\" />
     <Folder Include="Features\Cars\Tests\" />
