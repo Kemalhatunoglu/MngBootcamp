@@ -269,7 +269,7 @@ namespace Persistance.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("RentalStartDate");
 
-                    b.Property<double>("TotalFee")
+                    b.Property<float>("TotalFee")
                         .HasColumnType("float")
                         .HasColumnName("TotalFee");
 
@@ -291,7 +291,7 @@ namespace Persistance.Migrations
                         .HasColumnType("int")
                         .HasColumnName("BrandId");
 
-                    b.Property<double>("DailyPrice")
+                    b.Property<float>("DailyPrice")
                         .HasColumnType("float")
                         .HasColumnName("DailyPrice");
 

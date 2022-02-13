@@ -70,7 +70,7 @@ namespace Persistance.Migrations
                     FuelId = table.Column<int>(type: "int", nullable: false),
                     TransmissionId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DailyPrice = table.Column<double>(type: "float", nullable: false),
+                    DailyPrice = table.Column<float>(type: "float", nullable: false),
                     ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>

@@ -12,8 +12,8 @@ using Persistance;
 namespace Persistance.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    [Migration("20220208091334_AddFindeks")]
-    partial class AddFindeks
+    [Migration("20220213114337_initial-2")]
+    partial class initial2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,97 @@ namespace Persistance.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("Core.Security.Entities.OperationClaim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Name");
+
+                    b.Property<int?>("UserOperationClaimId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserOperationClaimId");
+
+                    b.ToTable("OperationClaims", (string)null);
+                });
+
+            modelBuilder.Entity("Core.Security.Entities.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Email");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("FirstName");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("LastName");
+
+                    b.Property<byte[]>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)")
+                        .HasColumnName("CaPasswordHashrId");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)")
+                        .HasColumnName("PasswordSalt");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit")
+                        .HasColumnName("Status");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users", (string)null);
+                });
+
+            modelBuilder.Entity("Core.Security.Entities.UserOperationClaim", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("OperationClaimId")
+                        .HasColumnType("int")
+                        .HasColumnName("OperationClaimId");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserOperationClaims", (string)null);
+                });
 
             modelBuilder.Entity("Domain.Entities.Concete.Brand", b =>
                 {
@@ -56,9 +147,16 @@ namespace Persistance.Migrations
                         .HasColumnType("int")
                         .HasColumnName("State");
 
+                    b.Property<int>("CityId")
+                        .HasColumnType("int")
+                        .HasColumnName("CityId");
+
                     b.Property<int>("ColorId")
                         .HasColumnType("int")
                         .HasColumnName("ColorId");
+
+                    b.Property<double?>("FinishKm")
+                        .HasColumnType("float");
 
                     b.Property<int?>("InvoiceId")
                         .HasColumnType("int");
@@ -84,7 +182,12 @@ namespace Persistance.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Plate");
 
+                    b.Property<double>("StartingKm")
+                        .HasColumnType("float");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CityId");
 
                     b.HasIndex("ColorId");
 
@@ -93,6 +196,25 @@ namespace Persistance.Migrations
                     b.HasIndex("ModelId");
 
                     b.ToTable("Cars", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Concete.City", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Cities", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Concete.Color", b =>
@@ -150,6 +272,31 @@ namespace Persistance.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CorporateCustomers", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Entities.Concete.DamageRecord", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CarId")
+                        .HasColumnType("int")
+                        .HasColumnName("CarId");
+
+                    b.Property<string>("DamageExp")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("DamageExp");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarId");
+
+                    b.ToTable("DamageRecords", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Concete.FindeksCredit", b =>
@@ -261,8 +408,9 @@ namespace Persistance.Migrations
                         .HasColumnType("int")
                         .HasColumnName("CustomerType");
 
-                    b.Property<int>("InvoiceNo")
-                        .HasColumnType("int")
+                    b.Property<string>("InvoiceNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("InvoiceNo");
 
                     b.Property<float>("RentalDayCount")
@@ -278,7 +426,7 @@ namespace Persistance.Migrations
                         .HasColumnName("RentalStartDate");
 
                     b.Property<float>("TotalFee")
-                        .HasColumnType("float")
+                        .HasColumnType("real")
                         .HasColumnName("TotalFee");
 
                     b.HasKey("Id");
@@ -300,7 +448,7 @@ namespace Persistance.Migrations
                         .HasColumnName("BrandId");
 
                     b.Property<float>("DailyPrice")
-                        .HasColumnType("float")
+                        .HasColumnType("real")
                         .HasColumnName("DailyPrice");
 
                     b.Property<int>("FuelId")
@@ -348,11 +496,21 @@ namespace Persistance.Migrations
                     b.Property<int?>("CorporateCustomerId")
                         .HasColumnType("int");
 
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int")
+                        .HasColumnName("CustomerId");
+
+                    b.Property<int?>("DeliveryCityId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2")
                         .HasColumnName("EndDate");
 
                     b.Property<int?>("IndividualCustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RentedCityId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ReturnDate")
@@ -394,8 +552,32 @@ namespace Persistance.Migrations
                     b.ToTable("Transmissions", (string)null);
                 });
 
+            modelBuilder.Entity("Core.Security.Entities.OperationClaim", b =>
+                {
+                    b.HasOne("Core.Security.Entities.UserOperationClaim", null)
+                        .WithMany("OperationClaims")
+                        .HasForeignKey("UserOperationClaimId");
+                });
+
+            modelBuilder.Entity("Core.Security.Entities.UserOperationClaim", b =>
+                {
+                    b.HasOne("Core.Security.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Domain.Entities.Concete.Car", b =>
                 {
+                    b.HasOne("Domain.Entities.Concete.City", "City")
+                        .WithMany("Cars")
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Entities.Concete.Color", "Color")
                         .WithMany("Cars")
                         .HasForeignKey("ColorId")
@@ -412,9 +594,22 @@ namespace Persistance.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("City");
+
                     b.Navigation("Color");
 
                     b.Navigation("Model");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Concete.DamageRecord", b =>
+                {
+                    b.HasOne("Domain.Entities.Concete.Car", "Car")
+                        .WithMany()
+                        .HasForeignKey("CarId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Car");
                 });
 
             modelBuilder.Entity("Domain.Entities.Concete.Model", b =>
@@ -463,9 +658,19 @@ namespace Persistance.Migrations
                     b.Navigation("Car");
                 });
 
+            modelBuilder.Entity("Core.Security.Entities.UserOperationClaim", b =>
+                {
+                    b.Navigation("OperationClaims");
+                });
+
             modelBuilder.Entity("Domain.Entities.Concete.Brand", b =>
                 {
                     b.Navigation("Models");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Concete.City", b =>
+                {
+                    b.Navigation("Cars");
                 });
 
             modelBuilder.Entity("Domain.Entities.Concete.Color", b =>

@@ -9,7 +9,7 @@ namespace Domain.Entities.Concete
             //Brand = new Brand();
         }
 
-        public Model(int id, int brandId, int fuelId, int transmissionId, string name, double dailyPrice, string imageUrl) : this()
+        public Model(int id, int brandId, int fuelId, int transmissionId, string name, float dailyPrice, string imageUrl) : this()
         {
             Id = id;
             BrandId = brandId;
@@ -24,7 +24,7 @@ namespace Domain.Entities.Concete
         public int FuelId { get; set; }
         public int TransmissionId { get; set; }
         public string Name { get; set; }
-        public double DailyPrice { get; set; }
+        public float DailyPrice { get; set; }
         public string ImageUrl { get; set; }
 
         public virtual Brand Brand { get; set; }

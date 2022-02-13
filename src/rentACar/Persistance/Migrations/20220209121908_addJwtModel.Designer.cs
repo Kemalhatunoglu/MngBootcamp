@@ -424,7 +424,7 @@ namespace Persistance.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("RentalStartDate");
 
-                    b.Property<double>("TotalFee")
+                    b.Property<float>("TotalFee")
                         .HasColumnType("float")
                         .HasColumnName("TotalFee");
 

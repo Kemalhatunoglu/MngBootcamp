@@ -5,12 +5,12 @@ namespace Domain.Entities.Concete
 {
     public class Invoice : Entity
     {
-        public int InvoiceNo { get; set; }
+        public string InvoiceNo { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime RentalStartDate { get; set; }
         public DateTime RentalEndDate { get; set; }
         public float RentalDayCount { get; set; }
-        public double TotalFee { get; set; }
+        public float TotalFee { get; set; }
         public int CustomerId { get; set; }
         public CustomerType CustomerType { get; set; }
         public virtual ICollection<Car> Cars { get; set; }
@@ -20,7 +20,7 @@ namespace Domain.Entities.Concete
             Cars = new HashSet<Car>();
         }
 
-        public Invoice(int id, int invoiceNo, DateTime creationDate, DateTime rentalStartDate, DateTime rentalEndDate, float rentalDayCount, double totalFee, int customerId, CustomerType customerType) : this()
+        public Invoice(int id, string invoiceNo, DateTime creationDate, DateTime rentalStartDate, DateTime rentalEndDate, float rentalDayCount, float totalFee, int customerId, CustomerType customerType) : this()
         {
             Id = id;
             InvoiceNo = invoiceNo;

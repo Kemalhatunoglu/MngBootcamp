@@ -26,7 +26,7 @@ namespace Persistance.Migrations
                     RentalStartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     RetuRentalEndDaternDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     RentalDayCount = table.Column<float>(type: "real", nullable: false),
-                    TotalFee = table.Column<double>(type: "float", nullable: false),
+                    TotalFee = table.Column<float>(type: "float", nullable: false),
                     CustomerId = table.Column<int>(type: "int", nullable: false),
                     CustomerType = table.Column<int>(type: "int", nullable: false)
                 },

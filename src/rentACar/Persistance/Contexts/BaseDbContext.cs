@@ -115,7 +115,7 @@ namespace Persistance
                 r.Property(p => p.CustomerId).HasColumnName("CustomerId").IsRequired();
                 r.Property(p => p.StartDate).HasColumnName("StartDate").IsRequired();
                 r.Property(p => p.EndDate).HasColumnName("EndDate").IsRequired();
-                r.Property(p => p.ReturnDate).HasColumnName("ReturnDate").IsRequired();
+                r.Property(p => p.ReturnDate).HasColumnName("ReturnDate");
                 r.HasOne(p => p.Car);
             });
 

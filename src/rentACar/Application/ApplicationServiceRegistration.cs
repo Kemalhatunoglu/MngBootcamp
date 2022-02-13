@@ -8,6 +8,8 @@ using Application.Features.Invoices.Rules.Application.Features.Invoices.Rules;
 using Application.Features.Models.Rules;
 using Application.Features.Rentals.Rules;
 using Application.Features.Transmissions.Rules;
+using Application.Services.OutService.Cars;
+using Application.Services.OutService.Invoices;
 using Core.Application.Pipelines.Caching;
 using Core.Application.Pipelines.Logging;
 using Core.Application.Pipelines.Validations;
@@ -42,6 +44,9 @@ namespace Application
             services.AddScoped<FindeksCreditBusinessRules>();
             services.AddScoped<InvoiceBusinessRules>();
             services.AddScoped<AuthBusinessRules>();
+
+            services.AddScoped<IInvoiceService, InvoiceManager>();
+            services.AddScoped<ICarService, CarManager>();
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));

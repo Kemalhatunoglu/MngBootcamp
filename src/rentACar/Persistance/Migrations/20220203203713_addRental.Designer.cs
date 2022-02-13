@@ -133,7 +133,7 @@ namespace Persistance.Migrations
                         .HasColumnType("int")
                         .HasColumnName("BrandId");
 
-                    b.Property<double>("DailyPrice")
+                    b.Property<float>("DailyPrice")
                         .HasColumnType("float")
                         .HasColumnName("DailyPrice");
 

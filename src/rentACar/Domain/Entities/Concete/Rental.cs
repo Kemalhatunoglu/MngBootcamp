@@ -13,13 +13,15 @@ namespace Domain.Entities.Concete
         public int? DeliveryCityId { get; set; }
 
         public virtual Car Car { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual ICollection<RentalAdditionalService> RentalsAdditionalServices { get; set; }
 
         public Rental()
         {
 
         }
 
-        public Rental(int id, int carId, DateTime startDate, DateTime endDate, DateTime? returnDate)
+        public Rental(int id, int carId, DateTime startDate, DateTime endDate, DateTime? returnDate) : this()
         {
             Id = id;
             CarId = carId;

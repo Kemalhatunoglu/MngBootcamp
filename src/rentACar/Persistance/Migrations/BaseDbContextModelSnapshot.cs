@@ -406,8 +406,9 @@ namespace Persistance.Migrations
                         .HasColumnType("int")
                         .HasColumnName("CustomerType");
 
-                    b.Property<int>("InvoiceNo")
-                        .HasColumnType("int")
+                    b.Property<string>("InvoiceNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
                         .HasColumnName("InvoiceNo");
 
                     b.Property<float>("RentalDayCount")
@@ -422,8 +423,8 @@ namespace Persistance.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("RentalStartDate");
 
-                    b.Property<double>("TotalFee")
-                        .HasColumnType("float")
+                    b.Property<float>("TotalFee")
+                        .HasColumnType("real")
                         .HasColumnName("TotalFee");
 
                     b.HasKey("Id");
@@ -444,8 +445,8 @@ namespace Persistance.Migrations
                         .HasColumnType("int")
                         .HasColumnName("BrandId");
 
-                    b.Property<double>("DailyPrice")
-                        .HasColumnType("float")
+                    b.Property<float>("DailyPrice")
+                        .HasColumnType("real")
                         .HasColumnName("DailyPrice");
 
                     b.Property<int>("FuelId")

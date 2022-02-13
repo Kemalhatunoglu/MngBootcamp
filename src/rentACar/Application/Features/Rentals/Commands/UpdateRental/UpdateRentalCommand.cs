@@ -41,7 +41,6 @@ namespace Application.Features.Rentals.Commands.UpdateRental
 
             public async Task<IResult> Handle(UpdateRentalCommand request, CancellationToken cancellationToken)
             {
-                await _rentalBusinessRules.DeliveryCityIsSameCity(request);
                 if (request.ReturnDate != null)
                 {
                     var rentCar = new Car { FinishKm = request.FinishKm };
