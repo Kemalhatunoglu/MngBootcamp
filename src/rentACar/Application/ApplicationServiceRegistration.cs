@@ -9,10 +9,13 @@ using Application.Features.Invoices.Rules.Application.Features.Invoices.Rules;
 using Application.Features.Models.Rules;
 using Application.Features.Rentals.Rules;
 using Application.Features.Transmissions.Rules;
+using Application.Services.OutService.AdditionalServices;
 using Application.Services.OutService.Cars;
 using Application.Services.OutService.Invoices;
+using Application.Services.OutService.RentalAdditionalServices;
 using Core.Application.Pipelines.Caching;
 using Core.Application.Pipelines.Logging;
+using Core.Application.Pipelines.Transaction;
 using Core.Application.Pipelines.Validations;
 using Core.CrossCuttingConcerns.Logging.Serilog;
 using Core.CrossCuttingConcerns.Logging.Serilog.Loggers;
@@ -49,10 +52,13 @@ namespace Application
 
             services.AddScoped<IInvoiceService, InvoiceManager>();
             services.AddScoped<ICarService, CarManager>();
+            services.AddScoped<IAdditionalService, AdditionalServiceManager>();
+            services.AddScoped<IRentalAdditionalService, RentalAdditionalServiceManager>();
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBehavior<,>));
 
             return services;
         }

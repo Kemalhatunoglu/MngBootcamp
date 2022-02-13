@@ -30,6 +30,8 @@ namespace Persistance
         public DbSet<User> Users { get; set; }
         public DbSet<OperationClaim> OperationClaims { get; set; }
         public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
+        public DbSet<RentalAdditionalService> RentalsAdditionalServices { get; set; }
+        public DbSet<AdditionalService> AdditionalServices { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -117,6 +119,8 @@ namespace Persistance
                 r.Property(p => p.EndDate).HasColumnName("EndDate").IsRequired();
                 r.Property(p => p.ReturnDate).HasColumnName("ReturnDate");
                 r.HasOne(p => p.Car);
+                r.HasMany(r => r.RentalsAdditionalServices);
+                r.HasOne(r => r.Customer);
             });
 
             modelBuilder.Entity<CorporateCustomer>(corp =>
@@ -213,6 +217,25 @@ namespace Persistance
                 b.HasMany(x => x.OperationClaims);
                 b.HasOne(x => x.User);
 
+            });
+
+            modelBuilder.Entity<AdditionalService>(a =>
+            {
+                a.ToTable("AdditionalServices").HasKey(k => k.Id);
+                a.Property(p => p.Id).HasColumnName("Id");
+                a.Property(p => p.Name).HasColumnName("Name");
+                a.Property(p => p.DailyPrice).HasColumnName("DailyPrice");
+                a.Property(p => p.Count).HasColumnName("Count");
+            });
+
+            modelBuilder.Entity<RentalAdditionalService>(r =>
+            {
+                r.ToTable("RentalAdditionalServices").HasKey(r => r.Id);
+                r.Property(r => r.Id).HasColumnName("Id");
+                r.Property(r => r.RentalId).HasColumnName("RentalId");
+                r.Property(r => r.AdditionalServiceId).HasColumnName("AdditionalServiceId");
+                r.HasOne(r => r.Rental);
+                r.HasOne(r => r.AdditionalService);
             });
 
             //var brand1 = new Brand(1, "BMW");

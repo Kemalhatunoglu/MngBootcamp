@@ -1,4 +1,5 @@
-﻿using Application.Services.Repositories;
+﻿using Application.Services.OutService.AdditionalServices;
+using Application.Services.Repositories;
 using Domain.Entities.Concete;
 
 namespace Application.Services.OutService.Invoices
@@ -6,10 +7,12 @@ namespace Application.Services.OutService.Invoices
     public class InvoiceManager : IInvoiceService
     {
         private readonly IInvoiceRepository _invoiceRepository;
+        private readonly IAdditionalService _additionalService;
 
-        public InvoiceManager(IInvoiceRepository invoiceRepository)
+        public InvoiceManager(IInvoiceRepository invoiceRepository, IAdditionalService additionalService)
         {
             _invoiceRepository = invoiceRepository;
+            _additionalService = additionalService;
         }
 
         public async Task<bool> AddInvoiceAsync(Invoice invoice)
@@ -56,6 +59,24 @@ namespace Application.Services.OutService.Invoices
             }
 
             await _invoiceRepository.UpdateAsync(invoice);
+        }
+
+        public async Task<float> CalcTotalPrice(Rental rental, float dailyPrice, List<int>? additionalIdList)
+        {
+            short totalRentalDate = Convert.ToInt16(rental.EndDate.Day - rental.StartDate.Day > 0 ? rental.EndDate.Day - rental.StartDate.Day : 1);
+            var total = await _additionalService.CalcAdditionalServicePrice(additionalIdList);
+
+            float totalFee = (float)(dailyPrice * totalRentalDate);
+            if (rental.DeliveryCityId != rental.RentedCityId) totalFee += 500;
+            if (total != null)
+            {
+                additionalIdList.ForEach(x =>
+                {
+                    totalFee += x;
+                });
+            }
+
+            return totalFee;
         }
     }
 }

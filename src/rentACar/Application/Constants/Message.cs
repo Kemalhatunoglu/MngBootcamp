@@ -50,6 +50,11 @@
         public static string ExistingData => "Data already exists.";
         public static string DamageRecordNotFound => "Damage record not found.";
         public static string NotFound => "Not found.";
+        public static string PaymentError => "Payment not accepted.";
+        #endregion
+
+        #region AdditionalService
+        public static string AdditionalServiceNotEnough => "There are not enough additional services.";
         #endregion
     }
 }

@@ -32,6 +32,7 @@ namespace Persistance
             services.AddScoped<IOperationClaimRepository, OperationClaimRepository>();
             services.AddScoped<ITokenHelper, JwtHelper>();
             services.AddScoped<IAdditionalServiceRepository, AdditionalServiceRepository>();
+            services.AddScoped<IRentalAdditionalServiceRepository, RentalAdditionalServiceRepository>();
 
             return services;
         }

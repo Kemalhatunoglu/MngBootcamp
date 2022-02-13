@@ -1,5 +1,6 @@
 ﻿using Application.Constants;
 using Application.Features.Rentals.Rules;
+using Application.Services.OutService.RentalAdditionalServices;
 using Application.Services.Repositories;
 using AutoMapper;
 using Core.Utilities.Results.Abstract;
@@ -23,20 +24,23 @@ namespace Application.Features.Rentals.Commands.UpdateRental
         public DateTime? MaintainEndDate { get; set; }
         public int? DeliveryCityId { get; set; }
         public double? FinishKm { get; set; }
+        public List<int>? AdditionalServiceIdList { get; set; }
 
         public class UpdateRentalCommandHandler : IRequestHandler<UpdateRentalCommand, IResult>
         {
             private readonly IRentalRepository _rentalRepository;
             private readonly ICarRepository _carRepository;
             private readonly IMapper _mapper;
+            private readonly IRentalAdditionalService _rentalAdditionalService;
             private readonly RentalBusinessRules _rentalBusinessRules;
 
-            public UpdateRentalCommandHandler(IMapper mapper, IRentalRepository rentalRepository, RentalBusinessRules rentalBusinessRules, ICarRepository carRepository)
+            public UpdateRentalCommandHandler(IMapper mapper, IRentalRepository rentalRepository, RentalBusinessRules rentalBusinessRules, ICarRepository carRepository, IRentalAdditionalService rentalAdditionalService)
             {
                 _mapper = mapper;
                 _rentalRepository = rentalRepository;
                 _rentalBusinessRules = rentalBusinessRules;
                 _carRepository = carRepository;
+                _rentalAdditionalService = rentalAdditionalService;
             }
 
             public async Task<IResult> Handle(UpdateRentalCommand request, CancellationToken cancellationToken)
@@ -46,8 +50,10 @@ namespace Application.Features.Rentals.Commands.UpdateRental
                     var rentCar = new Car { FinishKm = request.FinishKm };
                     await _carRepository.UpdateAsync(rentCar);
                 }
+
                 var updateModelRental = _mapper.Map<Rental>(request);
                 await _rentalRepository.UpdateAsync(updateModelRental);
+                await _rentalAdditionalService.UpdateRentalAdditionalService(request.Id, request.AdditionalServiceIdList);
                 return new SuccessResult(Message.SuccessUpdate);
             }
         }
