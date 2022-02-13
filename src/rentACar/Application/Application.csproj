@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\AdditionalServices\Tests\" />
     <Folder Include="Features\Authorizations\Dtos\" />
     <Folder Include="Features\Authorizations\Models\" />
     <Folder Include="Features\Authorizations\Profiles\" />

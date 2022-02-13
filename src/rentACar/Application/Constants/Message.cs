@@ -49,6 +49,7 @@
         #region Others
         public static string ExistingData => "Data already exists.";
         public static string DamageRecordNotFound => "Damage record not found.";
+        public static string NotFound => "Not found.";
         #endregion
     }
 }

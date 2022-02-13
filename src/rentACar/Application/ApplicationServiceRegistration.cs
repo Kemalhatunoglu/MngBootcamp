@@ -1,4 +1,5 @@
-﻿using Application.Features.Authorizations.Rules;
+﻿using Application.Features.AdditionalServices.Rules;
+using Application.Features.Authorizations.Rules;
 using Application.Features.Brands.Rules;
 using Application.Features.Cars.Rules;
 using Application.Features.Color.Rules;
@@ -44,6 +45,7 @@ namespace Application
             services.AddScoped<FindeksCreditBusinessRules>();
             services.AddScoped<InvoiceBusinessRules>();
             services.AddScoped<AuthBusinessRules>();
+            services.AddScoped<AdditionalServiceBusinessRules>();
 
             services.AddScoped<IInvoiceService, InvoiceManager>();
             services.AddScoped<ICarService, CarManager>();
