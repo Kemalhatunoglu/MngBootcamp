@@ -120,7 +120,6 @@ namespace Persistance
                 r.Property(p => p.ReturnDate).HasColumnName("ReturnDate");
                 r.HasOne(p => p.Car);
                 r.HasMany(r => r.RentalsAdditionalServices);
-                r.HasOne(r => r.Customer);
             });
 
             modelBuilder.Entity<CorporateCustomer>(corp =>

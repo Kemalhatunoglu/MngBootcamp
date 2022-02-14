@@ -1,19 +1,20 @@
 ﻿using Application.Constants;
-using Application.Services.OutService.RentalAdditionalServices;
 using Application.Services.Repositories;
 using Core.CrossCuttingConcerns.Exceptions;
+using Domain.Entities.Concete;
 
 namespace Application.Services.OutService.AdditionalServices
 {
     public class AdditionalServiceManager : IAdditionalService
     {
         private readonly IAdditionalServiceRepository _additionalServiceRepository;
-        private readonly IRentalAdditionalService _rentalAdditionalService;
+        private readonly IRentalAdditionalServiceRepository _rentalAdditionalServiceRepository;
 
-        public AdditionalServiceManager(IAdditionalServiceRepository additionalServiceRepository, IRentalAdditionalService rentalAdditionalService)
+
+        public AdditionalServiceManager(IAdditionalServiceRepository additionalServiceRepository, IRentalAdditionalServiceRepository rentalAdditionalServiceRepository)
         {
             _additionalServiceRepository = additionalServiceRepository;
-            _rentalAdditionalService = rentalAdditionalService;
+            _rentalAdditionalServiceRepository = rentalAdditionalServiceRepository;
         }
 
         public async Task<List<float>> GetAdditionalServicePriceList(List<int> additionalIdList, int rentalId)
@@ -25,7 +26,13 @@ namespace Application.Services.OutService.AdditionalServices
 
         public async Task AddRentalAdditionalService(int rentalId, List<int> additionalIdList)
         {
-            await _rentalAdditionalService.AddRentalAdditionalServiceByRentalId(rentalId, additionalIdList);
+            var model = new RentalAdditionalService();
+            foreach (var id in additionalIdList)
+            {
+                model.RentalId = rentalId;
+                model.AdditionalServiceId = id;
+                await _rentalAdditionalServiceRepository.AddAsync(model);
+            }
         }
 
         public async Task UpdateAdditionalServiceCount(int additionalId, bool isSelect)

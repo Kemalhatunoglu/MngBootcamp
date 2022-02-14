@@ -13,7 +13,7 @@ namespace Domain.Entities.Concete
         public int? DeliveryCityId { get; set; }
 
         public virtual Car Car { get; set; }
-        public virtual Customer Customer { get; set; }
+        // public virtual Customer Customer { get; set; }
         public virtual ICollection<RentalAdditionalService> RentalsAdditionalServices { get; set; }
 
         public Rental()
