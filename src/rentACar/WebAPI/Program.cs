@@ -18,6 +18,12 @@ builder.Services.AddInfrastructureServices();
 builder.Services.AddSingleton<IMailService, MailkitMailService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+builder.Services.AddCors(options => options.AddDefaultPolicy(b =>
+{
+    b.AllowAnyOrigin()
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+}));
 
 //builder.Services.AddDistributedMemoryCache();in memory çalýþýr hale gelir.
 builder.Services.AddStackExchangeRedisCache(option => option.Configuration = "localhost:6379");
@@ -35,6 +41,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors();
 
 app.ConfigureCustomExceptionMiddleware();
 
