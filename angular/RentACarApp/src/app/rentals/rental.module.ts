@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RentalComponent } from './rental/rental.component';
 import { AdditionalServicesComponent } from './additional-services/additional-services.component';
-import { CoreModule } from '../core/core.module';
+import { SharedModule } from '../core/shared.module';
 
 
 @NgModule({
@@ -10,7 +10,7 @@ import { CoreModule } from '../core/core.module';
     RentalComponent
   ],
   imports: [
-    CoreModule
+    SharedModule
   ],
   exports: [
     RentalComponent

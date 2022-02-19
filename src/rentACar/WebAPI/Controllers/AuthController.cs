@@ -8,7 +8,7 @@ namespace WebAPI.Controllers
     [ApiController]
     public class AuthController : BaseController
     {
-        [HttpPost("Login")]
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginUserCommand loginUserCommand)
         {
             var result = await Mediator.Send(loginUserCommand);

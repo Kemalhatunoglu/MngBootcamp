@@ -1,0 +1,87 @@
+
+<div id="nav">
+  <div class="login-reg-panel">
+    <div class="login-info-box">
+      <h2>Have an account?</h2>
+      <p>Is it possible to travel the world by renting a car?</p>
+      <label id="label-register" for="log-reg-show">Login</label>
+      <input
+        type="radio"
+        name="active-log-panel"
+        id="log-reg-show"
+        checked="checked"
+      />
+    </div>
+    <div class="register-info-box">
+      <h2>Don't have an account?</h2>
+      <p>Say what?</p>
+      <label id="label-login" for="log-login-show">Register</label>
+      <input type="radio" name="active-log-panel" id="log-login-show" />
+    </div>
+    <div class="white-panel">
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <div class="login-show">
+          <h2>LOGIN</h2>
+          <input
+            type="text"
+            name="email"
+            formControlName="email"
+            class="form-control"
+            placeholder="Email"
+          />
+          <input
+            type="password"
+            name="password"
+            formControlName="password"
+            class="form-control"
+            placeholder="Password"
+          />
+
+          <input type="submit" class="btn btn-outline-warning" value="Login" />
+          <!-- <a href="">Forgot password?</a> -->
+        </div>
+      </form>
+      <form [formGroup]="registerForm" (ngSubmit)="register()">
+        <div class="register-show">
+          <h2>REGISTER</h2>
+          <input
+            type="text"
+            name="firstName"
+            formControlName="firstName"
+            class="form-control"
+            placeholder="First Name"
+          />
+          <input
+            type="text"
+            name="lastName"
+            formControlName="lastName"
+            class="form-control"
+            placeholder="Last Name"
+          />
+          <input
+            type="text"
+            name="email"
+            formControlName="email"
+            class="form-control"
+            placeholder="Email"
+          />
+          <input
+            type="password"
+            name="password"
+            formControlName="password"
+            class="form-control"
+            placeholder="Password"
+          />
+          <input
+            type="password"
+            name="confirmPassword"
+            formControlName="confirmPassword"
+            class="form-control"
+            placeholder="Confirm Password"
+          />
+          <input type="submit" class="btn btn-outline-warning" value="Register" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

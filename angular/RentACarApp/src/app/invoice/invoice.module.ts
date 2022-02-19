@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
+import { SharedModule } from '../core/shared.module';
+
 import { InvoiceComponent } from './invoice/invoice.component';
-import { CoreModule } from '../core/core.module';
 
 
 @NgModule({
@@ -8,7 +9,7 @@ import { CoreModule } from '../core/core.module';
     InvoiceComponent
   ],
   imports: [
-    CoreModule
+    SharedModule
   ],
   exports: [
     InvoiceComponent

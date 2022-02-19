@@ -29,8 +29,8 @@ namespace Application.Features.Authorizations.Commands.LoginCommand
 
             public async Task<IDataResult<AccessToken>> Handle(LoginUserCommand request, CancellationToken cancellationToken)
             {
-                await _authBusinessRules.UserEmailShouldBeExists(request.UserForLogin.Email);
                 var user = await _userRepository.GetAsync(u => u.Email == request.UserForLogin.Email);
+                await _authBusinessRules.UserEmailShouldBeExists(request.UserForLogin.Email);
                 await _authBusinessRules.UserPasswordShouldBeMatch(user.Id, request.UserForLogin.Password);
 
                 List<OperationClaim> claims = _userRepository.GetClaims(user);

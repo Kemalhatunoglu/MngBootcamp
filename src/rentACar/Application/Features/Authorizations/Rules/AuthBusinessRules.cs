@@ -30,6 +30,7 @@ namespace Application.Features.Authorizations.Rules
         public async Task UserPasswordShouldBeMatch(int id, string password)
         {
             User? user = await _userRepository.GetAsync(u => u.Id == id);
+
             if (!HashingHelper.VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
                 throw new BusinessException(Message.PasswordNotMatch);
         }
