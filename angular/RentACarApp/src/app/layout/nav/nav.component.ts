@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, PrimeIcons } from 'primeng/api';
 import { AuthService } from 'src/app/auths/auth-service/auth.service';
 
 @Component({
@@ -23,32 +23,54 @@ export class NavComponent implements OnInit {
     this.getNavBarMenu();
   }
 
-
   getNavBarMenu() {
     this.items = [
       {
-        label: 'Rental',
+        label: 'Rezervasyonlar',
         items: [
-          {
-            label: 'Araçlar',
-            icon: 'pi pi-fw pi-plus',
-            items: [
-              { label: 'Otomobil', routerLink: 'car' },
-              { label: 'Karavan' },
-            ]
-          },
-          { label: 'Open' },
-          { label: 'Quit' }
+          { label: 'Rezervasyon Oluştur', icon: 'pi pi-fw pi-trash', routerLink: "rental/create" },
+          { label: 'Rezervasyon İptal', icon: 'pi pi-fw pi-trash', routerLink: "rental/cancel" }
         ]
       },
       {
-        label: 'Kullanıcılar',
+        label: 'Kampanyalar',
         items: [
-          { label: 'Delete', icon: 'pi pi-fw pi-trash' },
-          { label: 'Refresh', icon: 'pi pi-fw pi-refresh' }
-        ],
+          { label: 'Mng Elite', icon: 'pi pi-fw pi-trash' },
+          { label: 'Mng Prime', icon: 'pi pi-fw pi-refresh' },
+          { label: 'Mng Platin', icon: 'pi pi-fw pi-refresh' }
+        ]
+
+      },
+      {
+        label: 'Ofisler',
+        items: [
+          { label: 'Ankara', icon: 'pi pi-fw pi-trash' },
+          { label: 'İstanbul', icon: 'pi pi-fw pi-refresh' }
+        ]
+
+      },
+      {
+        label: 'Filo',
+        items: [
+          { label: 'Sedan', icon: 'pi pi-fw pi-trash' },
+          { label: 'Hatchback', icon: 'pi pi-fw pi-refresh' },
+          { label: 'Suv', icon: 'pi pi-fw pi-refresh' },
+          { label: 'Lüks', icon: 'pi pi-fw pi-refresh' },
+        ]
+      },
+      {
+        label: 'Karavan',
+        routerLink: "van"
+      },
+      {
+        label: 'İletişim',
+        routerLink: "contact"
       }
     ];
   }
 
+
+  logout() {
+    this.authService.logout();
+  }
 }

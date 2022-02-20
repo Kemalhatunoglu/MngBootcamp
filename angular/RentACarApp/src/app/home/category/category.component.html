@@ -1,0 +1,5 @@
+<p-dock [model]="allCategories" position="bottom">
+  <ng-template pTemplate="item" let-item>
+    <img [src]="item.icon" [alt]="item.label" width="120%" />
+  </ng-template>
+</p-dock>

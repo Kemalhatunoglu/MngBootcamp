@@ -1,0 +1,81 @@
+<p-card [style]="backcolor">
+  <app-car-carousel></app-car-carousel>
+</p-card>
+
+<p-card [style]="backcolor">
+  <div class="row">
+    <div class="col-md-4">
+      <p-avatar image="assets/image/people/1.png"></p-avatar>
+      <p-card
+        header="Simple Card"
+        [style]="{ width: '100%', 'margin-bottom': '2em' }"
+      >
+        <p>
+          {{ comment | summary: 70 }}
+        </p>
+      </p-card>
+    </div>
+    <div class="col-md-4">
+      <p-avatar image="assets/image/people/2.png"></p-avatar>
+      <p-card
+        header="Simple Card"
+        [style]="{ width: '100%', 'margin-bottom': '2em' }"
+      >
+        <p>
+          {{ comment | summary: 70 }}
+        </p>
+      </p-card>
+    </div>
+    <div class="col-md-4">
+      <p-avatar image="assets/image/people/3.png"></p-avatar>
+      <p-card
+        header="Simple Card"
+        [style]="{ width: '100%', 'margin-bottom': '2em' }"
+      >
+        <p>
+          {{ comment | summary: 70 }}
+        </p>
+      </p-card>
+    </div>
+  </div>
+</p-card>
+
+<p-card [style]="backcolor" class="text-center">
+  <ng-template pTemplate="header" class="p-md-2">
+    <h3>
+      <strong><em>KAMPANYALAR</em></strong>
+    </h3>
+  </ng-template>
+  <div class="col-4 d-inline-block" *ngFor="let offer of offers">
+    <p-card
+      header={{offer.name}}
+      subheader="Card Subheader"
+      [style]="{ width: '300px' }"
+      styleClass="p-card-shadow"
+    >
+      <ng-template pTemplate="header">
+        <img alt="Card" src={{offer.img}} />
+      </ng-template>
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed
+        consequuntur error!
+      </p>
+      <ng-template pTemplate="footer">
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-check"
+          class="p-button-rounded p-button-text"
+        ></button>
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-times"
+          class="p-button-rounded p-button-danger p-button-text"
+        ></button>
+      </ng-template>
+    </p-card>
+  </div>
+</p-card>

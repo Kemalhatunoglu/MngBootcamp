@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { SharedModule } from '../core/shared.module';
 
 import { AuthRoutingModule } from './auth-routing.module';
@@ -15,7 +16,8 @@ import { AuthComponent } from './auth/auth.component';
     SharedModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    MessageService
   ],
   exports: [
     AuthComponent

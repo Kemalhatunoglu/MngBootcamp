@@ -40,7 +40,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("get-car-list")]
-        public async Task<IActionResult> GetBrandList([FromQuery] PageRequest pageRequest)
+        public async Task<IActionResult> GetCarList([FromQuery] PageRequest pageRequest)
         {
             var query = new GetCarListQuery();
             query.PageRequest = pageRequest;
@@ -49,9 +49,16 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet("get-by-cityId")]
-        public async Task<IActionResult> GetBrandById([FromBody] GetCarListByCityIdQuery getCarListByCityIdQuery)
+        public async Task<IActionResult> GetCarById([FromQuery] GetCarListByCityIdQuery getCarListByCityIdQuery)
         {
             var result = await Mediator.Send(getCarListByCityIdQuery);
+            return Ok(result);
+        }
+
+        [HttpGet("get-by-id")]
+        public async Task<IActionResult> GetCarById([FromQuery] GetCarByIdQuery getCarByIdQuery)
+        {
+            var result = await Mediator.Send(getCarByIdQuery);
             return Ok(result);
         }
     }

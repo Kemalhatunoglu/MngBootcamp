@@ -8,24 +8,24 @@ using MediatR;
 
 namespace Application.Features.Cars.Queries
 {
-    public class GetCarListByCityIdQuery : IRequest<IDataResult<CarCommandDto>>
+    public class GetCarByIdQuery : IRequest<IDataResult<CarCommandDto>>
     {
-        public int CityId { get; set; }
+        public int Id { get; set; }
 
-        public class GetCarListByCityIdQueryHandler : IRequestHandler<GetCarListByCityIdQuery, IDataResult<CarCommandDto>>
+        public class GetCarByIdQueryHandler : IRequestHandler<GetCarByIdQuery, IDataResult<CarCommandDto>>
         {
             private readonly ICarRepository _carRepository;
             private readonly IMapper _mapper;
 
-            public GetCarListByCityIdQueryHandler(IMapper mapper, ICarRepository carRepository)
+            public GetCarByIdQueryHandler(IMapper mapper, ICarRepository carRepository)
             {
                 _mapper = mapper;
                 _carRepository = carRepository;
             }
 
-            public async Task<IDataResult<CarCommandDto>> Handle(GetCarListByCityIdQuery request, CancellationToken cancellationToken)
+            public async Task<IDataResult<CarCommandDto>> Handle(GetCarByIdQuery request, CancellationToken cancellationToken)
             {
-                var response = await _carRepository.GetAsync(car => car.CityId == request.CityId);
+                var response = await _carRepository.GetAsync(car => car.Id == request.Id);
                 if (response.Id < 0) return new ErrorDataResult<CarCommandDto>(Message.ErrorGet);
 
                 var mappedCars = _mapper.Map<CarCommandDto>(response);

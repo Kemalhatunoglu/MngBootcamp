@@ -1,2 +1,11 @@
-<p-menubar [model]="items" > </p-menubar>
 <!-- *ngIf="isAuthenticated" -->
+<p-menubar [model]="items">
+  <button
+    class="btn btn-sm btn bg-warning me-2"
+    style="color: #091a32"
+    (click)="logout()"
+  >
+    <!-- <i class="pi-sign-out"></i> -->
+    <strong>Logout</strong>
+  </button>
+</p-menubar>

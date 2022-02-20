@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, tap } from 'rxjs';
-import { ResultModel } from 'src/app/core/baseModel/resultModel';
+import { ResultModel } from 'src/app/base-model/resultModel';
 import { environment } from 'src/environments/environment';
 import { AuthLoginModel } from '../auth-model/authLoginModel';
 import { AuthResponseModel } from '../auth-model/authResponseModel';

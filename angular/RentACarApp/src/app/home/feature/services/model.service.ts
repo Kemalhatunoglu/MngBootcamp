@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ListResponseModel } from 'src/app/core/baseModel/listResponseModel';
+import { ListResponseModel } from 'src/app/base-model/listResponseModel';
 import { environment } from 'src/environments/environment';
 import { ModelBaseModel } from '../../entity-model/model/modelBaseModel';
 import { ModelListModel } from '../../entity-model/model/modelListModel';

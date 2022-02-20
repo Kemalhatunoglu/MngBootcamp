@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ListResponseModel } from 'src/app/core/baseModel/listResponseModel';
+import { ListResponseModel } from 'src/app/base-model/listResponseModel';
 import { ModelListModel } from '../../entity-model/model/modelListModel';
 import { ModelService } from '../services/model.service';
 
