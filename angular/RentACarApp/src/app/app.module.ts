@@ -10,6 +10,7 @@ import { AuthInterceptor } from './core/interceptor/auth.interceptor';
 import { AppComponent } from './app.component';
 import { NavComponent } from './layout/nav/nav.component';
 import { ErrorInterceptor } from './core/interceptor/error.interceptor';
+import { RentalModule } from './rentals/rental.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { ErrorInterceptor } from './core/interceptor/error.interceptor';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    RentalModule,
     MenubarModule,
     HttpClientModule
   ],

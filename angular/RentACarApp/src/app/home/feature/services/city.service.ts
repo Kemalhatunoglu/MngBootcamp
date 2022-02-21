@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ListResponseModel } from 'src/app/base-model/listResponseModel';
+import { ResultModel } from 'src/app/base-model/resultModel';
 import { environment } from 'src/environments/environment';
 import { CityListModel } from '../../entity-model/City/CityListModel';
 import { CityModel } from '../../entity-model/City/CityModel';
@@ -16,9 +17,9 @@ export class CityService {
     private http: HttpClient
   ) { }
 
-  getAllCities(page: number, size: number): Observable<ListResponseModel<CityListModel>> {
+  getAllCities(page: number = 0, size: number = 10): Observable<ResultModel<ListResponseModel<CityListModel>>> {
     let newwPath = `${this.apiCityUrl}get-city-list?Page${page}PageSize=${size}`;
-    return this.http.get<ListResponseModel<CityListModel>>(newwPath);
+    return this.http.get<ResultModel<ListResponseModel<CityListModel>>>(newwPath);
   }
 
   addCity(cityModel: CityModel): Observable<CityModel> {

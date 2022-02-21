@@ -1,0 +1,55 @@
+<div class="card">
+  <p-dataView
+    #dv
+    [value]="allCar"
+    [paginator]="false"
+    [rows]="9"
+    filterBy="name"
+    layout="grid"
+  >
+    <ng-template let-allCar pTemplate="listItem">
+      <div class="col-12">
+        <div class="product-list-item">
+          <img
+            [src]="'assets/showcase/images/demo/product/' + allCar.image"
+            [alt]="allCar.name"
+          />
+          <div class="product-list-detail">
+            <div class="product-name">{{ allCar.name }}</div>
+            <div class="product-description">{{ allCar.description }}</div>
+
+            <i class="pi pi-tag product-category-icon"></i
+            ><span class="product-category">{{ allCar.category }}</span>
+          </div>
+          <div class="product-list-action">
+            <span class="product-price">${{ allCar.price }}</span>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template let-product pTemplate="gridItem">
+      <div class="col-12 md:col-4">
+        <div class="product-grid-item card">
+          <div class="product-grid-item-top">
+            <div>
+              <i class="pi pi-tag product-category-icon"></i>
+              <span class="product-category">{{ product.category }}</span>
+            </div>
+          </div>
+          <div class="product-grid-item-content">
+            <!-- <img
+              [src]="'assets/showcase/images/demo/product/' + product.image"
+              [alt]="product.name"
+            /> -->
+            <div class="product-name">{{ product.name }}</div>
+            <div class="product-description">{{ product.description }}</div>
+          </div>
+          <div class="product-grid-item-bottom">
+            <span class="product-price">${{ product.price }}</span>
+            <p-button icon="pi pi-shopping-cart"></p-button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-dataView>
+</div>

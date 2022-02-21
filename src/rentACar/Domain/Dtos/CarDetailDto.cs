@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,10 @@ namespace Domain.Dtos
         public string Plate { get; set; }
         public string CityName { get; set; }
         public float DailyPrice { get; set; }
+        public string? ImageUrl { get; set; }
+        public string? ColorName { get; set; }
+        public CarState? CarState { get; set; }
+
 
     }
 }

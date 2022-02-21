@@ -1,1 +1,81 @@
-<p>rental works!</p>
+<p-dialog id="dlgCSS" [(visible)]="displayModal" [transitionOptions]="'300ms'">
+  <h5 class="text-center">Rezervasyon Oluştur</h5>
+  <div class="row">
+    <form [formGroup]="rentalLocationForm" (ngSubmit)="createRental()">
+      <div class="row mb-3">
+        <div class="col-md-6 mb-2">
+          <div class="form-group">
+            <label for="rentedCity">Alış Şehri</label>
+            <select
+              class="form-control"
+              id="rentedCity"
+              name="rentedCity"
+              formControlName="rentedCity"
+              [(ngModel)]="selectedRentedCit"
+            >
+              <option *ngFor="let item of allCity" [value]="item.id">
+                {{ item.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6 mb-2" *ngIf="isSameCity">
+          <div class="form-group">
+            <label for="deliveryCity">İade Şehri</label>
+            <select
+              class="form-control"
+              id="deliveryCity"
+              name="deliveryCity"
+              formControlName="deliveryCity"
+              [(ngModel)]="selectedDeliveryCity"
+            >
+              <option *ngFor="let item of allCity" [value]="item.id">
+                {{ item.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="rentedDate">Alış Tarihi</label>
+            <input
+              type="date"
+              formControlName="rentedDate"
+              name="rentedDate"
+              class="form-control"
+              id="rentedDate"
+            />
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="deliveryDate">İade Tarihi</label>
+            <input
+              type="date"
+              formControlName="deliveryDate"
+              name="deliveryDate"
+              class="form-control"
+              id="deliveryDate"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="custom-control custom-checkbox">
+        <input
+          type="checkbox"
+          class="custom-control-input"
+          name="isSameCity"
+          formControlName="isSameCity"
+          id="isSameCity"
+          [(ngModel)]="isSameCity"
+        />
+        <label class="custom-control-label ms-2" for="isSameCity"
+          >Farklı yerde bırakmak istiyorum</label
+        >
+      </div>
+      <button type="submit" class="btn btn-primary float-md-end">
+        Uygun Aracı Bul
+      </button>
+    </form>
+  </div>
+</p-dialog>

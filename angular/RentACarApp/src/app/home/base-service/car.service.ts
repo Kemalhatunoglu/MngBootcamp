@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ListResponseModel } from 'src/app/base-model/listResponseModel';
 import { ResultModel } from 'src/app/base-model/resultModel';
 import { environment } from 'src/environments/environment';
+import { CarDetailModel } from '../entity-model/car/carDetailModel';
 import { CarModel } from '../entity-model/car/carModel';
 
 @Injectable({
@@ -24,5 +25,10 @@ export class CarService {
   getCarById(id: number) {
     let newwPath = `${this.apiCarUrl}get-by-id?Id${id}`;
     return this.http.get<ResultModel<CarModel>>(newwPath);
+  }
+
+  getAllCarDetail(): Observable<ResultModel<CarDetailModel[]>> {
+    let newwPath = `${this.apiCarUrl}get-all-car-detail`;
+    return this.http.get<ResultModel<CarDetailModel[]>>(newwPath);
   }
 }

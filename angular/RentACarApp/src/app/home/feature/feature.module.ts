@@ -1,23 +1,18 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/core/shared.module';
-import { BrandRepositoryService } from './brand/brand-repository.service';
-import { CityRepositoryService } from './city/city-repository.service';
-import { ModelRepositoryService } from './model/model-repository.service';
+import { FeatureComponent } from './feature/feature.component';
 
 @NgModule({
   declarations: [
-
+    FeatureComponent
   ],
   imports: [
     SharedModule
   ],
   exports: [
-
+    FeatureComponent
   ],
   providers: [
-    BrandRepositoryService,
-    CityRepositoryService,
-    ModelRepositoryService
   ]
 })
 export class FeatureModule { }

@@ -1,6 +1,7 @@
 ﻿using Application.Features.Brands.Commends.CreateBrand;
 using Application.Features.Brands.Commends.DeleteBrand;
 using Application.Features.Brands.Commends.UpdateBrand;
+using Application.Features.Brands.Queries.GetAllBrandDetail;
 using Application.Features.Brands.Queries.GetBrandById;
 using Application.Features.Brands.Queries.GetBrandList;
 using Core.Application.Requests;
@@ -46,6 +47,15 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> GetBrandById([FromBody] GetBrandByIdQuery getBrandByIdQuery)
         {
             var result = await Mediator.Send(getBrandByIdQuery);
+            return Ok(result);
+        }
+
+        [HttpGet("get-brand-detail-list")]
+        public async Task<IActionResult> GetBrandList()
+        {
+            var query = new GetAllBrandDetailQuery();
+            var result = await Mediator.Send(query);
+
             return Ok(result);
         }
     }

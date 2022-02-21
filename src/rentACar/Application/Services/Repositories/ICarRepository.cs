@@ -7,5 +7,6 @@ namespace Application.Services.Repositories
     public interface ICarRepository : IAsyncRepository<Car>
     {
         CarDetailDto GetCarDetailToRental(int id);
+        Task<List<CarDetailDto>> GetAllCarDetailToRental();
     }
 }

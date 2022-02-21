@@ -1,0 +1,10 @@
+.dlgCSS {
+  background-image: none;
+  background-color: red;
+  padding-top: 0;
+}
+
+
+.p-dialog .p-dialog-header{
+  padding-bottom: 0px;
+}

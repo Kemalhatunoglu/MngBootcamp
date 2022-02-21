@@ -61,5 +61,22 @@ namespace WebAPI.Controllers
             var result = await Mediator.Send(getCarByIdQuery);
             return Ok(result);
         }
+
+
+        [HttpGet("get-car-detail-by-id")]
+        public async Task<IActionResult> GetCarsDetailById([FromQuery] GetCarsDetailQuery getCarsDetailQuery)
+        {
+            var result = await Mediator.Send(getCarsDetailQuery);
+            return Ok(result);
+        }
+
+
+        [HttpGet("get-all-car-detail")]
+        public async Task<IActionResult> GetAllCarsDetail()
+        {
+            var query = new GetAllCarsDetailQuery();
+            var result = await Mediator.Send(query);
+            return Ok(result);
+        }
     }
 }

@@ -3,8 +3,13 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RippleModule } from 'primeng/ripple';
-import { ToastModule } from 'primeng/toast';
 import { SummaryPipe } from './pipe/summary.pipe';
+
+import { ToastModule } from 'primeng/toast';
+import { TabViewModule } from 'primeng/tabview';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+
 
 @NgModule({
   declarations: [
@@ -13,10 +18,13 @@ import { SummaryPipe } from './pipe/summary.pipe';
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule.withConfig({ warnOnNgModelWithFormControl: 'never' }),
     HttpClientModule,
     ToastModule,
-    RippleModule,
+    TabViewModule,
+    DialogModule,
+    ButtonModule,
+    RippleModule
   ],
   exports: [
     CommonModule,
@@ -24,7 +32,10 @@ import { SummaryPipe } from './pipe/summary.pipe';
     ReactiveFormsModule,
     HttpClientModule,
     ToastModule,
+    TabViewModule,
     RippleModule,
+    DialogModule,
+    ButtonModule,
     SummaryPipe
   ],
   providers: [

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem, PrimeIcons } from 'primeng/api';
 import { AuthService } from 'src/app/auths/auth-service/auth.service';
+import { CityListModel } from 'src/app/home/entity-model/City/CityListModel';
+import { CityModel } from 'src/app/home/entity-model/City/CityModel';
+import { CityService } from 'src/app/home/feature/services/city.service';
 
 @Component({
   selector: 'app-nav',
@@ -11,8 +14,15 @@ export class NavComponent implements OnInit {
 
   items: MenuItem[];
   isAuthenticated: boolean = false;
+  citiesModel: CityModel[] = [];
+  cityItem: MenuItem[];
 
-  constructor(private authService: AuthService) { }
+  isShowRentalModal: boolean = false;
+
+  constructor(
+    private authService: AuthService,
+    private cityService: CityService
+  ) { }
 
   ngOnInit(): void {
 
@@ -21,41 +31,47 @@ export class NavComponent implements OnInit {
     });
 
     this.getNavBarMenu();
+    this.getAllCity()
+  }
+
+  showRentalModal(rental: any) {
+    this.isShowRentalModal = true;
   }
 
   getNavBarMenu() {
     this.items = [
       {
+        label: 'Ana Sayfa',
+        routerLink: "home"
+      },
+      {
         label: 'Rezervasyonlar',
-        items: [
-          { label: 'Rezervasyon Oluştur', icon: 'pi pi-fw pi-trash', routerLink: "rental/create" },
-          { label: 'Rezervasyon İptal', icon: 'pi pi-fw pi-trash', routerLink: "rental/cancel" }
-        ]
+        command: rental => this.showRentalModal(rental)
       },
       {
         label: 'Kampanyalar',
         items: [
-          { label: 'Mng Elite', icon: 'pi pi-fw pi-trash' },
-          { label: 'Mng Prime', icon: 'pi pi-fw pi-refresh' },
-          { label: 'Mng Platin', icon: 'pi pi-fw pi-refresh' }
+          { label: 'Mng Elite', icon: PrimeIcons.THUMBS_UP },
+          { label: 'Mng Prime', icon: PrimeIcons.THUMBS_UP },
+          { label: 'Mng Platin', icon: PrimeIcons.THUMBS_UP }
         ]
 
       },
       {
         label: 'Ofisler',
         items: [
-          { label: 'Ankara', icon: 'pi pi-fw pi-trash' },
-          { label: 'İstanbul', icon: 'pi pi-fw pi-refresh' }
+          { label: 'Ankara', icon: PrimeIcons.MAP_MARKER, routerLink: "cities" },
+          { label: 'İstanbul', icon: PrimeIcons.MAP_MARKER, routerLink: "cities" }
         ]
 
       },
       {
         label: 'Filo',
         items: [
-          { label: 'Sedan', icon: 'pi pi-fw pi-trash' },
-          { label: 'Hatchback', icon: 'pi pi-fw pi-refresh' },
-          { label: 'Suv', icon: 'pi pi-fw pi-refresh' },
-          { label: 'Lüks', icon: 'pi pi-fw pi-refresh' },
+          { label: 'Sedan', icon: PrimeIcons.ANGLE_DOUBLE_RIGHT },
+          { label: 'Hatchback', icon: PrimeIcons.ANGLE_DOUBLE_RIGHT },
+          { label: 'Suv', icon: PrimeIcons.ANGLE_DOUBLE_RIGHT },
+          { label: 'Lüks', icon: PrimeIcons.ANGLE_DOUBLE_RIGHT },
         ]
       },
       {
@@ -65,12 +81,26 @@ export class NavComponent implements OnInit {
       {
         label: 'İletişim',
         routerLink: "contact"
+      },
+      {
+        label: 'Admin',
+        items: [
+          { label: 'Veri Girişi', routerLink: 'feature', icon: PrimeIcons.ANGLE_DOUBLE_RIGHT },
+        ],
+
       }
     ];
   }
 
-
   logout() {
     this.authService.logout();
+  }
+
+  getAllCity() {
+    this.cityService.getAllCities(0, 10).subscribe(response => {
+      if (response.success) {
+        this.citiesModel = response.data.items;
+      }
+    })
   }
 }
