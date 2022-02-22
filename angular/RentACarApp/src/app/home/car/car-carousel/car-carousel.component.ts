@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CarService } from '../../base-service/car.service';
-import { CarModel } from '../../entity-model/car/carModel';
+import { CarDetailModel } from '../../entity-model/car/carDetailModel';
 
 @Component({
   selector: 'app-car-carousel',
@@ -9,8 +9,12 @@ import { CarModel } from '../../entity-model/car/carModel';
 })
 export class CarCarouselComponent implements OnInit {
 
-  carModel: CarModel[];
+  allCarsDetail: CarDetailModel[];
   indexImg: number = 1;
+
+  displayCarDetailModel: boolean = false;
+  selectedCar: CarDetailModel;
+
   responsiveOptions;
 
   constructor(private carService: CarService) {
@@ -34,8 +38,18 @@ export class CarCarouselComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.carService.getAllCars(0, 10).subscribe(response => {
-      this.carModel = response.data.items;
-    });
+    this.getAllCarDetail();
+  }
+
+  getAllCarDetail() {
+    this.carService.getAllCarDetail().subscribe(response => {
+      this.allCarsDetail = response.data
+    })
+  }
+
+  showCarDetail(car: CarDetailModel) {
+    this.selectedCar = car;
+    console.log(this.selectedCar)
+    this.displayCarDetailModel = true;
   }
 }

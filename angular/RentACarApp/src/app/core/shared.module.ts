@@ -9,6 +9,7 @@ import { ToastModule } from 'primeng/toast';
 import { TabViewModule } from 'primeng/tabview';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { ButtonModule } from 'primeng/button';
     HttpClientModule,
     ToastModule,
     TabViewModule,
+    TableModule,
     DialogModule,
     ButtonModule,
     RippleModule
@@ -34,6 +36,7 @@ import { ButtonModule } from 'primeng/button';
     ToastModule,
     TabViewModule,
     RippleModule,
+    TableModule,
     DialogModule,
     ButtonModule,
     SummaryPipe

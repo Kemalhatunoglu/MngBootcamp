@@ -1,55 +1,65 @@
-<div class="card">
-  <p-dataView
-    #dv
-    [value]="allCar"
-    [paginator]="false"
-    [rows]="9"
-    filterBy="name"
-    layout="grid"
-  >
-    <ng-template let-allCar pTemplate="listItem">
-      <div class="col-12">
-        <div class="product-list-item">
-          <img
-            [src]="'assets/showcase/images/demo/product/' + allCar.image"
-            [alt]="allCar.name"
-          />
-          <div class="product-list-detail">
-            <div class="product-name">{{ allCar.name }}</div>
-            <div class="product-description">{{ allCar.description }}</div>
+<p-table
+  #dt
+  [value]="allCar"
+  [rows]="10"
+  responsiveLayout="scroll"
+  [(selection)]="selectedCar"
+  [rowHover]="true"
+  dataKey="id"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+  [showCurrentPageReport]="true"
+>
+  <ng-template pTemplate="caption">
+    <div class="flex align-items-center justify-content-between">
+      <h5 class="m-0">Kiralık Araçlar</h5>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 3rem">
+        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+      </th>
+      <th>Model</th>
+      <th>Image</th>
+      <th>Price</th>
+      <th>Marka</th>
+      <th>Plate</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-car>
+    <tr>
+      <td>
+        <p-tableCheckbox [value]="car.carId"></p-tableCheckbox>
+      </td>
+      <td>{{ car.modelName }}</td>
+      <td>
+        <img
+          src="assets/image/car/{{ car.imageUrl }}"
+          alt="Image"
+          width="150"
+          class="shadow-4"
+        />
+      </td>
+      <td>{{ car.dailyPrice | currency: "USD" }}</td>
+      <td>{{ car.brandName }}</td>
+      <td>{{ car.plate }}</td>
+      <td>
+        <span [class]="'product-badge'">{{
+          car.carState === 1 ? "Available" : "Rented"
+        }}</span>
+      </td>
+      <td>
+        <button
+          pButton
+          pRipple
+          icon="pi pi-check"
+          class="p-button-rounded p-button-success me-2"
+          (click)="createRental(car)"
+        ></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
 
-            <i class="pi pi-tag product-category-icon"></i
-            ><span class="product-category">{{ allCar.category }}</span>
-          </div>
-          <div class="product-list-action">
-            <span class="product-price">${{ allCar.price }}</span>
-          </div>
-        </div>
-      </div>
-    </ng-template>
-    <ng-template let-product pTemplate="gridItem">
-      <div class="col-12 md:col-4">
-        <div class="product-grid-item card">
-          <div class="product-grid-item-top">
-            <div>
-              <i class="pi pi-tag product-category-icon"></i>
-              <span class="product-category">{{ product.category }}</span>
-            </div>
-          </div>
-          <div class="product-grid-item-content">
-            <!-- <img
-              [src]="'assets/showcase/images/demo/product/' + product.image"
-              [alt]="product.name"
-            /> -->
-            <div class="product-name">{{ product.name }}</div>
-            <div class="product-description">{{ product.description }}</div>
-          </div>
-          <div class="product-grid-item-bottom">
-            <span class="product-price">${{ product.price }}</span>
-            <p-button icon="pi pi-shopping-cart"></p-button>
-          </div>
-        </div>
-      </div>
-    </ng-template>
-  </p-dataView>
-</div>

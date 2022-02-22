@@ -1,28 +1,35 @@
 <p-carousel
-  [value]="carModel"
+  [value]="allCarsDetail"
   styleClass="custom-carousel"
-  [numVisible]="3"
+  [numVisible]="2"
   [numScroll]="1"
   [circular]="true"
   [autoplayInterval]="3000"
   [responsiveOptions]="responsiveOptions"
 >
-  <ng-template let-car pTemplate="item">
+  <ng-template let-car pTemplate="item" style="min-height: 25px">
     <div class="product-item">
       <div class="product-item-content">
         <div class="p-mb-3"></div>
-        <div routerLink="/carDetail">
+        <div>
           <p-image
-            src="assets/image/car/{{ indexImg }}.jpg"
+            src="assets/image/car/{{ car.imageUrl }}"
             alt="Image"
             width="150"
           ></p-image>
-          <h4 class="p-mb-1">{{ car.cityId }}</h4>
-          <h6 class="p-mt-0 p-mb-3">${{ car.plate }}</h6>
+          <h4 class="p-mb-1">{{ car.brandName }}</h4>
+          <h6 class="p-mt-0 p-mb-3">{{ car.modelName }}</h6>
+          <p>Günlü sadece {{ car.dailyPrice }} TL.</p>
         </div>
+        <!-- <button class="btn btn-info btn-sm" (click)="showCarDetail(car)">
+          Detail
+        </button> -->
       </div>
     </div>
   </ng-template>
 </p-carousel>
 
-
+<app-car-detail
+  [(displayModal)]="displayCarDetailModel"
+  [selectedCarDetail]="selectedCar"
+></app-car-detail>

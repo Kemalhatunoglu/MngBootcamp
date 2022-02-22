@@ -6,4 +6,5 @@ export interface CarDetailModel {
   plate: string;
   cityName: string;
   dailyPrice: number;
+  imageUrl: string;
 }

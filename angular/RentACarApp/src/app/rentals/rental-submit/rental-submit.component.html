@@ -1,0 +1,121 @@
+<div class="container pt-100 mb-5">
+  <h1 class="mb-2">Kiralama Onayı</h1>
+  <br />
+  <div class="col-sm-12">
+    <ng-container *ngIf="car">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Araç</th>
+            <th>Model</th>
+            <th>Fiyat</th>
+            <th>Toplam</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <img
+                src="assets/image/car/{{ car.imageUrl }}"
+                alt="Image"
+                width="150"
+                class="shadow-4"
+              />
+            </td>
+            <td>{{ car.brandName }}</td>
+            <td>{{ car.modelName }}</td>
+            <td>{{ car.dailyPrice }} TL</td>
+            <td>{{ car.dailyPrice + totalPriceWithAdditional }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </ng-container>
+
+    <ng-container>
+      <div class="alert alert-warning mt-3">
+        <div class="col-6">
+          <button class="btn btn-warning p-2" (click)="op.toggle($event)">
+            Ek Hizmetler
+          </button>
+        </div>
+        <div class="col-6">
+          <ng-container *ngIf="selectedAdditionalService.length > 0">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Seçilen Hizmet</th>
+                  <th>Ek Ücret</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of selectedAdditionalService">
+                  <td>{{ item.name }}</td>
+                  <td>{{ item.dailyPrice }}</td>
+                  <td>
+                    <button
+                      class="btn btn-sm btn-warning p-2"
+                      (click)="deleteAdditional(item)"
+                    >
+                      Kaldır
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </ng-container>
+        </div>
+      </div>
+      <p-overlayPanel #op>
+        <ng-template pTemplate>
+          <p-table
+            [value]="allAdditionalService"
+            selectionMode="single"
+            [(selection)]="selectedAdditional"
+            (onRowSelect)="onRowSelect($event)"
+            [paginator]="true"
+            [rows]="5"
+            responsiveLayout="scroll"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th>İsmi</th>
+                <th>Ücteri</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-additional>
+              <tr [pSelectableRow]="rowData">
+                <td>{{ additional.name }}</td>
+                <td>{{ additional.dailyPrice }}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </ng-template>
+      </p-overlayPanel>
+    </ng-container>
+  </div>
+  <div class="col-sm-3 ml-auto">
+    <ng-container>
+      <div class="text-left">
+        <h4>Ek Hizmetler</h4>
+        <table class="table">
+          <tbody>
+            <tr>
+              <th>Toplam</th>
+              <td>{{ car.dailyPrice + totalPriceWithAdditional }}TL</td>
+            </tr>
+          </tbody>
+        </table>
+        <div>
+          <button routerLink="" class="btn btn-danger btn-sm me-2">
+            İptal
+          </button>
+          <button (click)="saveRental()" class="btn btn-primary btn-sm">
+            Onay
+          </button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>

@@ -15,6 +15,7 @@ import { CategoryComponent } from './category/category.component';
 import { CarCarouselComponent } from './car/car-carousel/car-carousel.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { FeatureModule } from './feature/feature.module';
+import { CarDetailComponent } from './car/car-detail/car-detail.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { FeatureModule } from './feature/feature.module';
     CategoryComponent,
     CarCarouselComponent,
     HomePageComponent,
+    CarDetailComponent,
   ],
   imports: [
     HomeRoutingModule,

@@ -6,16 +6,15 @@ using Core.Application.Requests;
 using Core.Persistence.Paging;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
+using Domain.Dtos;
 using Domain.Entities.Concete;
 using MediatR;
 
 namespace Application.Features.AdditionalServices.Queries
 {
-    public class GetListAdditionalServiceQuery : IRequest<IDataResult<AdditionalServiceListModel>>
+    public class GetListAdditionalServiceQuery : IRequest<IDataResult<List<AdditionalServiceDto>>>
     {
-        public PageRequest PageRequest { get; set; }
-
-        public class GetListAdditionalServiceQueryHandler : IRequestHandler<GetListAdditionalServiceQuery, IDataResult<AdditionalServiceListModel>>
+        public class GetListAdditionalServiceQueryHandler : IRequestHandler<GetListAdditionalServiceQuery, IDataResult<List<AdditionalServiceDto>>>
         {
             private readonly IAdditionalServiceRepository _additionalServiceRepository;
             private readonly IMapper _mapper;
@@ -26,11 +25,10 @@ namespace Application.Features.AdditionalServices.Queries
                 _mapper = mapper;
             }
 
-            public async Task<IDataResult<AdditionalServiceListModel>> Handle(GetListAdditionalServiceQuery request, CancellationToken cancellationToken)
+            public async Task<IDataResult<List<AdditionalServiceDto>>> Handle(GetListAdditionalServiceQuery request, CancellationToken cancellationToken)
             {
-                IPaginate<AdditionalService> additionalServices = await _additionalServiceRepository.GetListAsync(index: request.PageRequest.Page, size: request.PageRequest.PageSize);
-                var mappedAdditionalServiceListModel = _mapper.Map<AdditionalServiceListModel>(additionalServices);
-                return new SuccessDataResult<AdditionalServiceListModel>(mappedAdditionalServiceListModel, Message.SuccessGet);
+                List<AdditionalServiceDto> additionalServiceDto = await _additionalServiceRepository.GetAll();
+                return new SuccessDataResult<List<AdditionalServiceDto>>(additionalServiceDto, Message.SuccessGet);
             }
         }
     }

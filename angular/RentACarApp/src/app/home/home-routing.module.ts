@@ -14,7 +14,12 @@ const routes: Routes = [
       { path: "", component: HomePageComponent },
     ]
   },
-  { path: "car", component: CarComponent },
+  {
+    path: "car", component: CarComponent,
+    children: [
+      { path: "car/car-detail/{id}", component: HomePageComponent },
+    ]
+  },
   { path: "feature", component: FeatureComponent }
 
 ];

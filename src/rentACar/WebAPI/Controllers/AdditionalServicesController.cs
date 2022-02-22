@@ -32,11 +32,10 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet("get-additional-service-list")]
-        public async Task<IActionResult> GetAdditionalServiceList([FromQuery] PageRequest pageRequest)
+        [HttpGet]
+        public async Task<IActionResult> GetAllAdditionalService()
         {
             var query = new GetListAdditionalServiceQuery();
-            query.PageRequest = pageRequest;
             var result = await Mediator.Send(query);
             return Ok(result);
         }
