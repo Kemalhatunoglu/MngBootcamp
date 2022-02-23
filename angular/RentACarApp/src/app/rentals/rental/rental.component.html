@@ -1,4 +1,9 @@
-<p-dialog id="dlgCSS" [(visible)]="displayModal" [transitionOptions]="'300ms'">
+<p-dialog
+  id="dlgCSS"
+  [(visible)]="displayModal"
+  (onHide)="hideDialog()"
+  [transitionOptions]="'300ms'"
+>
   <h5 class="text-center">Rezervasyon Oluştur</h5>
   <div class="row">
     <form [formGroup]="rentalLocationForm" (ngSubmit)="createRental()">

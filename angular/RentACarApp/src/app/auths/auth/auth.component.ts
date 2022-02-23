@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthLoginModel } from '../auth-model/authLoginModel';
 import { RegisterModel } from '../auth-model/registerModel';
-import { User } from '../auth-model/user';
 import { AuthService } from '../auth-service/auth.service';
 
 declare var $: any;

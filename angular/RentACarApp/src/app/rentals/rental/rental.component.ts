@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CityModel } from 'src/app/home/entity-model/City/CityModel';
@@ -13,6 +13,7 @@ import { CityService } from 'src/app/home/feature/services/city.service';
 export class RentalComponent implements OnInit {
 
   @Input() displayModal = false;
+  @Output() displayModalChange = new EventEmitter<boolean>();
 
   allCity: CityModel[] = [];
   selectedRentedCit: number = 1;
@@ -52,5 +53,9 @@ export class RentalComponent implements OnInit {
     this.displayModal = false;
   }
 
+  hideDialog() {
+    this.displayModal = false;
+    this.displayModalChange.emit(this.displayModal);
+  }
 
 }

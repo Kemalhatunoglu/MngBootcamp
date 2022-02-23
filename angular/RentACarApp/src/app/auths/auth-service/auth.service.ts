@@ -45,22 +45,7 @@ export class AuthService {
   login(loginModel: AuthLoginModel) {
     console.log(loginModel)
     return this.http.post<ResultModel<AuthResponseModel>>(`${this.baseAuthUrl}login`, loginModel)
-      .pipe(
-        tap((response) => {
-          let newUser: User = null
-          if (response.success) {
-            newUser = new User(
-              loginModel.email,
-              null,
-              null,
-              null,
-              response.data.token,
-              response.data.expiration
-            )
-          }
-          this.handleAuthentication(response, newUser);
-        })
-      )
+
   }
 
   logout() {
