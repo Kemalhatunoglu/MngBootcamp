@@ -19,6 +19,7 @@ namespace WebAPI.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterUserCommand registerUserCommand)
         {
             var result = await Mediator.Send(registerUserCommand);
+            var a = result;
             return result.Success ? Ok(result) : BadRequest(result);
         }
     }

@@ -9,6 +9,8 @@
             <th></th>
             <th>Araç</th>
             <th>Model</th>
+            <th>Kiralanan Gün</th>
+            <th>Teslim Şehri</th>
             <th>Fiyat</th>
             <th>Toplam</th>
           </tr>
@@ -25,8 +27,16 @@
             </td>
             <td>{{ car.brandName }}</td>
             <td>{{ car.modelName }}</td>
+            <td>{{ numberOfRentedDays }} Gün</td>
+            <td>{{ checkCity() ? "Farklı (+500TL)" : "Aynı" }}</td>
             <td>{{ car.dailyPrice }} TL</td>
-            <td>{{ car.dailyPrice + totalPriceWithAdditional }}</td>
+            <td>
+              {{
+                (car.dailyPrice + totalPriceWithAdditional) *
+                  numberOfRentedDays +
+                  addCityPrice
+              }}
+            </td>
           </tr>
         </tbody>
       </table>
@@ -81,7 +91,7 @@
             <ng-template pTemplate="header">
               <tr>
                 <th>İsmi</th>
-                <th>Ücteri</th>
+                <th>Günlük Ücreti</th>
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-additional>
@@ -103,7 +113,13 @@
           <tbody>
             <tr>
               <th>Toplam</th>
-              <td>{{ car.dailyPrice + totalPriceWithAdditional }}TL</td>
+              <td>
+                {{
+                  (car.dailyPrice + totalPriceWithAdditional) *
+                    numberOfRentedDays +
+                    addCityPrice
+                }}TL
+              </td>
             </tr>
           </tbody>
         </table>

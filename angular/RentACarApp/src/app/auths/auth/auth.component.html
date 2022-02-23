@@ -1,4 +1,3 @@
-
 <div id="nav">
   <div class="login-reg-panel">
     <div class="login-info-box">
@@ -19,25 +18,30 @@
       <input type="radio" name="active-log-panel" id="log-login-show" />
     </div>
     <div class="white-panel">
-      <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <form>
         <div class="login-show">
           <h2>LOGIN</h2>
           <input
             type="text"
             name="email"
-            formControlName="email"
+            [(ngModel)]="email"
             class="form-control"
             placeholder="Email"
           />
           <input
             type="password"
             name="password"
-            formControlName="password"
+            [(ngModel)]="password"
             class="form-control"
             placeholder="Password"
           />
 
-          <input type="submit" class="btn btn-outline-warning" value="Login" />
+          <input
+            type="button"
+            (click)="login()"
+            class="btn btn-outline-warning"
+            value="Login"
+          />
           <!-- <a href="">Forgot password?</a> -->
         </div>
       </form>
@@ -79,7 +83,11 @@
             class="form-control"
             placeholder="Confirm Password"
           />
-          <input type="submit" class="btn btn-outline-warning" value="Register" />
+          <input
+            type="submit"
+            class="btn btn-outline-warning"
+            value="Register"
+          />
         </div>
       </form>
     </div>

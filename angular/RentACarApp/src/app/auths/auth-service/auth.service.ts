@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { ResultModel } from 'src/app/base-model/resultModel';
 import { environment } from 'src/environments/environment';
 import { AuthLoginModel } from '../auth-model/authLoginModel';
 import { AuthResponseModel } from '../auth-model/authResponseModel';
+import { RegisterModel } from '../auth-model/registerModel';
 import { User } from '../auth-model/user';
 
 @Injectable({
@@ -21,27 +22,28 @@ export class AuthService {
 
   user = new BehaviorSubject<User>(null)
 
-  register(userModel: User) {
-    return this.http.post<ResultModel<AuthResponseModel>>(`${this.baseAuthUrl}register`, userModel)
-      .pipe(
-        tap((response) => {
-          let newUser: User = null
-          if (response.success) {
-            newUser = new User(
-              userModel.email,
-              userModel.firstName,
-              userModel.lastName,
-              null,
-              response.data.token,
-              response.data.expiration
-            );
-          }
-          this.handleAuthentication(response, newUser)
-        })
-      )
+  register(userModel: RegisterModel): Observable<ResultModel<AuthResponseModel>> {
+    console.log(this.baseAuthUrl)
+    return this.http.post<ResultModel<AuthResponseModel>>(`${this.baseAuthUrl}register`, userModel).pipe(
+      tap((response) => {
+        let newUser: User = null
+        if (response.success) {
+          newUser = new User(
+            userModel.email,
+            userModel.firstName,
+            userModel.lastName,
+            null,
+            response.data.token,
+            response.data.expiration
+          )
+        }
+        this.handleAuthentication(response, newUser);
+      })
+    )
   }
 
   login(loginModel: AuthLoginModel) {
+    console.log(loginModel)
     return this.http.post<ResultModel<AuthResponseModel>>(`${this.baseAuthUrl}login`, loginModel)
       .pipe(
         tap((response) => {

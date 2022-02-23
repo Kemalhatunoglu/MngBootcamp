@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthLoginModel } from '../auth-model/authLoginModel';
+import { RegisterModel } from '../auth-model/registerModel';
 import { User } from '../auth-model/user';
 import { AuthService } from '../auth-service/auth.service';
 
@@ -20,6 +21,9 @@ export class AuthComponent implements OnInit {
     private router: Router,
     private messageService: MessageService
   ) { }
+
+  email: string;
+  password: string;
 
   ngOnInit(): void {
     $(document).ready(function () {
@@ -65,36 +69,36 @@ export class AuthComponent implements OnInit {
   })
 
   login() {
-    if (this.loginForm.valid) {
-      var model: AuthLoginModel;
-      model.email = this.loginForm.value["email"];
-      model.password = this.loginForm.value["password"];
 
-      this.authService.login(model).subscribe(response => {
-        this.messageService.add({ severity: 'success', summary: response.message });
-        this.router.navigate(["/home"])
-      }, err => {
-        this.messageService.add({ severity: 'error', summary: err.message })
-      });
-    }
+    var model: AuthLoginModel = {
+      email: this.email,
+      password: this.password
+    };
+
+    this.authService.login(model).subscribe(response => {
+      this.messageService.add({ severity: 'success', summary: response.message });
+      this.router.navigate(["/home"])
+    }, err => {
+      this.messageService.add({ severity: 'error', summary: err.message })
+    });
+
   }
 
   register() {
-
+    let regisretModel: RegisterModel
     if (this.registerForm.valid) {
 
       let password = this.registerForm.value["password"];
       let confirmPassword = this.registerForm.value["confirmPassword"];
 
-
       if (password == confirmPassword) {
-        console.log("Girdi")
-        var regisretModel = new User(
-          this.registerForm.value["email"],
-          this.registerForm.value["firstName"],
-          this.registerForm.value["lastName"],
-          this.registerForm.value["password"]
-        );
+
+        regisretModel = {
+          email: this.registerForm.value["email"],
+          password: this.registerForm.value["password"],
+          firstName: this.registerForm.value["firstName"],
+          lastName: this.registerForm.value["lastName"],
+        };
 
         this.authService.register(regisretModel).subscribe(response => {
           this.messageService.add({ severity: 'success', summary: response.message });
