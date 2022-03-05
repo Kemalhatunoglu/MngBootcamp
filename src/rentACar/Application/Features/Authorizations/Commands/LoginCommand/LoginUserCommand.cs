@@ -12,7 +12,8 @@ namespace Application.Features.Authorizations.Commands.LoginCommand
 {
     public class LoginUserCommand : IRequest<IDataResult<AccessToken>>
     {
-        public UserForLoginDto UserForLogin { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
 
         public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, IDataResult<AccessToken>>
         {
@@ -29,9 +30,9 @@ namespace Application.Features.Authorizations.Commands.LoginCommand
 
             public async Task<IDataResult<AccessToken>> Handle(LoginUserCommand request, CancellationToken cancellationToken)
             {
-                var user = await _userRepository.GetAsync(u => u.Email == request.UserForLogin.Email);
-                await _authBusinessRules.UserEmailShouldBeExists(request.UserForLogin.Email);
-                await _authBusinessRules.UserPasswordShouldBeMatch(user.Id, request.UserForLogin.Password);
+                var user = await _userRepository.GetAsync(u => u.Email == request.Email);
+                await _authBusinessRules.UserEmailShouldBeExists(request.Email);
+                await _authBusinessRules.UserPasswordShouldBeMatch(user.Id, request.Password);
 
                 List<OperationClaim> claims = _userRepository.GetClaims(user);
                 AccessToken accessToken = await _tokenHelper.CreateTokenAsync(user, claims);

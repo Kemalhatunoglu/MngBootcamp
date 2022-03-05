@@ -6,8 +6,8 @@ namespace Application.Features.Authorizations.Commands.LoginCommand
     {
         public LoginUserValidator()
         {
-            RuleFor(p => p.UserForLogin.Password).NotEmpty();
-            RuleFor(e => e.UserForLogin.Email).NotEmpty();
+            RuleFor(p => p.Password).NotEmpty();
+            RuleFor(e => e.Email).NotEmpty();
         }
     }
 }

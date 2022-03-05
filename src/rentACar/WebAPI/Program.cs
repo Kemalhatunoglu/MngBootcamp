@@ -2,6 +2,7 @@ using Application;
 using Core.Application.Pipelines.Caching;
 using Core.CrossCuttingConcerns.Exceptions;
 using Core.Mailing;
+using Core.Mailing.FakeMail;
 using Core.Mailing.MailkitImplementations;
 using Infrastructure;
 using Persistance;
@@ -15,7 +16,7 @@ builder.Services.AddControllers();
 builder.Services.AddApplicationServices();
 builder.Services.AddPersistanceServices(builder.Configuration);
 builder.Services.AddInfrastructureServices();
-builder.Services.AddSingleton<IMailService, MailkitMailService>();
+builder.Services.AddSingleton<IMailService, FakeMailService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 builder.Services.AddCors(options => options.AddDefaultPolicy(b =>
